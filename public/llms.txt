@@ -455,41 +455,41 @@ Make the app feel like a real internal business operating system, not just a sim
 ## Pages
 
 ### בית
-https://example.com
+https://moshedigitalleasakim.zappy5.app
 מערכת ניהול עסקי פנימית חכמה לחנות מיצים ושייקים. קבל שקיפות מלאה על הכנסות, הוצאות ורווחיות במקום אחד. פתרונות בריאות לעובדים מרחוק ולעצמאים.
 
 ### לוח בקרה
-https://example.com/dashboard
+https://moshedigitalleasakim.zappy5.app/dashboard
 לוח בקרה ויזואלי פרימיום שמציג רווח נקי, הוצאות, הכנסות ומגמות חודשיות בזמן אמת. כלים לייזמים חדשניים בישראל שרוצים לנהל עם ראש פנוי ובהירות מלאה.
 
 ### הכנסות והוצאות
-https://example.com/income-expenses
+https://moshedigitalleasakim.zappy5.app/income-expenses
 מעקב מדויק אחר הכנסות והוצאות לפי קטגוריה, ספק ותאריך. ייצא דוחות, צרף קבלות ובדוק את מצב העסק בשנייה. אורח חיים בריא לעצמאים מתחיל בניהול פיננסי נכון.
 
 ### ספקים וקבלות
-https://example.com/suppliers-receipts
+https://moshedigitalleasakim.zappy5.app/suppliers-receipts
 נהל את כל הספקים, ימי ההזמנה, פרטי הקשר והקבלות במקום אחד מסודר. מבנה מוכן לזיהוי חכם של קבלות בעתיד. משה ה פתרונות לעסקים שרוצים סדר תפעולי אמיתי.
 
 ### מוצרים, רווחיות ותמחור
-https://example.com/products-profitability-pricing
+https://moshedigitalleasakim.zappy5.app/products-profitability-pricing
 חשב עלות מוצר לפי מתכון, נתח רווחיות לכל פריט וצור תמחור חכם לאירועים, קייטרינג וקופסאות מתנה. פתרונות בריאות לעובדים מרחוק ולעסקי מזון שרוצים לצמוח.
 
 ### צור קשר
-https://example.com/contact
+https://moshedigitalleasakim.zappy5.app/contact
 יש לך שאלה על מערכת הניהול או רוצה להתחיל? צור קשר עם משה ה עכשיו ותקבל מענה מהיר. כלים לייזמים חדשניים בישראל מחכים לך — אל תישאר לבד עם הניהול.
 
 ## Legal & Policy
 
 ### Privacy Policy
-https://example.com/privacy
+https://moshedigitalleasakim.zappy5.app/privacy
 Information about how user data is collected, stored, and protected.
 
 ### Terms & Conditions
-https://example.com/terms
+https://moshedigitalleasakim.zappy5.app/terms
 Legal terms describing service usage, rights, and policies.
 
 ### Accessibility Statement
-https://example.com/accessibility
+https://moshedigitalleasakim.zappy5.app/accessibility
 Information about WCAG compliance and accessibility features.
 
 ---
@@ -502,8 +502,8 @@ Information about WCAG compliance and accessibility features.
 - Address: קדושת לוי, 10, ביתר, Israel, Israel
 
 ### Contact form
-- URL: https://example.com/contact
-- Endpoint: https://example.com/api/email/contact-form
+- URL: https://moshedigitalleasakim.zappy5.app/contact
+- Endpoint: https://moshedigitalleasakim.zappy5.app/api/email/contact-form
 - Method: POST
 - Content-Type: application/json
 - Fields:
@@ -980,6 +980,6 @@ General
 
 # Machine-readable feeds
 
-- Sitemap (XML): https://example.com/sitemap.xml
-- Robots: https://example.com/robots.txt
-- Flattened page text (for LLMs): https://example.com/llms-full.txt
+- Sitemap (XML): https://moshedigitalleasakim.zappy5.app/sitemap.xml
+- Robots: https://moshedigitalleasakim.zappy5.app/robots.txt
+- Flattened page text (for LLMs): https://moshedigitalleasakim.zappy5.app/llms-full.txt
