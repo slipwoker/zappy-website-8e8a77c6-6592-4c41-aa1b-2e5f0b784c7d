@@ -1,0 +1,982 @@
+# משה ה — Generative Engine Optimization Map
+
+> Build a modern internal business management web app for a juice and smoothie shop called "18 Karrots".
+
+This is NOT a customer app.
+This is an internal management system for the business owners and staff.
+
+The purpose of the system is to give full operational and financial clarity in one place, including:
+- income tracking
+- expense tracking
+- supplier management
+- receipt storage
+- product costing
+- profitability analysis
+- event / catering pricing
+- business overview dashboard
+
+The business currently has only one branch.
+Do not build a franchise system.
+Do not build customer ordering features.
+Focus only on internal management.
+
+==================================================
+CORE GOALS
+==================================================
+
+The system should help the business understand:
+- total income
+- total expenses
+- net profit
+- cost of goods
+- supplier-related expenses
+- product profitability
+- waste and inefficiency
+- smart pricing for events, tastings, gift boxes, and catering
+
+The UI must be very clean, modern, visual, and easy to understand for a non-technical user.
+Use cards, charts, summary blocks, filters, and clean tables.
+Make the dashboard feel premium and simple.
+
+==================================================
+USER ROLES
+==================================================
+
+Create these roles:
+1. Admin
+- full access to everything
+- can add/edit/delete all records
+- can manage suppliers, products, ingredients, recipes, income, expenses, receipts, and event pricing
+
+2. Staff
+- limited access
+- can add income and expenses
+- can upload receipts
+- can view suppliers
+- cannot change core settings or delete important data
+
+==================================================
+MAIN SECTIONS / PAGES
+==================================================
+
+Create the following main pages in the app sidebar:
+
+1. Dashboard
+2. Income
+3. Expenses
+4. Suppliers
+5. Receipts
+6. Products
+7. Ingredients
+8. Recipes
+9. Profitability
+10. Events & Catering Pricing
+11. Reports
+12. Settings
+
+==================================================
+1. DASHBOARD PAGE
+==================================================
+
+Create a visual dashboard showing monthly business overview.
+
+Top summary cards:
+- Total Income This Month
+- Total Expenses This Month
+- Net Profit This Month
+- Profit Margin %
+- Cost of Goods %
+- Franchise Fee 5%
+
+Charts:
+- Monthly income vs expenses
+- Expenses by category
+- Expenses by supplier
+- Income by source
+- Profit trend by month
+
+Widgets / tables:
+- Recent expenses
+- Recent income
+- Low stock alerts
+- Upcoming supplier order reminders
+- Recent uploaded receipts
+
+Add filters:
+- date range
+- month
+- source
+- supplier
+- category
+
+==================================================
+2. INCOME PAGE
+==================================================
+
+Create an Income Management page.
+
+Allow adding income records with the following fields:
+- Date
+- Source (POS / Kiosk / Wolt / Catering / Events / Other)
+- Amount
+- Payment Notes
+- Reference Number
+- Notes
+
+Features:
+- add income
+- edit income
+- delete income
+- filter by date and source
+- monthly total
+- export table
+
+==================================================
+3. EXPENSES PAGE
+==================================================
+
+Create an Expense Management page.
+
+Allow adding expense records with:
+- Date
+- Supplier
+- Category
+- Amount
+- Payment Method
+- Receipt Image
+- Description
+- Notes
+
+Expense categories should include:
+- Fruits
+- Frozen Goods
+- Desserts
+- Plastic / Packaging
+- Cleaning
+- Utilities
+- Salaries
+- Rent
+- Equipment
+- Marketing
+- Other
+
+Features:
+- add expense
+- edit expense
+- delete expense
+- attach/upload receipt image
+- filter by supplier, category, date
+- show monthly expense total
+- export table
+
+==================================================
+4. SUPPLIERS PAGE
+==================================================
+
+Create a Suppliers page.
+
+Each supplier should include:
+- Supplier Name
+- Category
+- Contact Person
+- Phone Number
+- Email
+- Fixed Order Day
+- Delivery Time (days)
+- Standard Weekly Order Notes
+- Products This Supplier Provides
+- Reminder Enabled
+- Notes
+
+Features:
+- supplier list view
+- supplier detail page
+- add/edit/delete supplier
+- supplier category filters
+- reminder indicator for ordering day
+- show related expenses for each supplier
+
+==================================================
+5. RECEIPTS PAGE
+==================================================
+
+Create a Receipts page for receipt storage and organization.
+
+Each receipt record should include:
+- Receipt Image
+- Upload Date
+- Expense Date
+- Supplier
+- Amount
+- Category
+- Notes
+
+If possible, add basic AI/OCR-ready structure so the system is prepared to support:
+- extracting amount
+- extracting date
+- extracting supplier name
+
+Even if OCR is not fully functional, structure the page and data model for future support.
+
+Features:
+- upload receipt image
+- view receipt gallery/list
+- link receipt to expense
+- filter by supplier/date/category
+
+==================================================
+6. PRODUCTS PAGE
+==================================================
+
+Create a Products page.
+
+Each product should include:
+- Product Name
+- Category
+- Selling Price
+- Description
+- Active / Inactive
+
+Examples:
+- juices
+- smoothies
+- bowls
+- desserts
+- catering items
+- gift boxes
+
+Features:
+- add/edit/delete product
+- product list
+- product details
+- link each product to recipe
+- show calculated product cost
+- show profit margin
+
+==================================================
+7. INGREDIENTS PAGE
+==================================================
+
+Create an Ingredients page.
+
+Each ingredient should include:
+- Ingredient Name
+- Supplier
+- Purchase Unit (kg / liter / unit / box)
+- Purchase Cost
+- Cost Per Unit
+- Current Stock
+- Minimum Stock Alert
+- Notes
+
+Features:
+- add/edit/delete ingredient
+- track ingredient costs
+- track stock level
+- low stock alerts
+- link ingredient to supplier
+- link ingredient to recipes
+
+==================================================
+8. RECIPES PAGE
+==================================================
+
+Create a Recipes page that connects products to ingredients.
+
+Each recipe row should include:
+- Product
+- Ingredient
+- Quantity Used
+- Unit
+- Notes
+
+Features:
+- multiple ingredients per product
+- calculate total product cost automatically from recipe ingredients
+- show recipe breakdown for each product
+
+==================================================
+9. PROFITABILITY PAGE
+==================================================
+
+Create a Profitability page.
+
+This page should show:
+- Product Name
+- Selling Price
+- Total Cost
+- Gross Profit
+- Profit Margin %
+- Cost Percentage
+
+Features:
+- sort by most profitable
+- sort by least profitable
+- identify low-margin products
+- visual indicators for good / medium / low margin
+- profitability table
+- product profit cards
+
+Also include a basic section for:
+- waste / inefficiency insights
+- high-cost ingredients affecting margins
+
+==================================================
+10. EVENTS & CATERING PRICING PAGE
+==================================================
+
+Create a page for event pricing, tasting cups, catering, gift boxes, and culinary tours.
+
+Allow creating pricing scenarios.
+
+Each scenario should include:
+- Scenario Name
+- Product Used
+- Base Product Cost
+- Number of Servings / Tasting Cups Produced
+- Extra Packaging Cost
+- Extra Labor Cost
+- Transport Cost
+- Desired Profit Margin %
+- Final Recommended Price
+
+Example logic:
+A large smoothie costs 40 NIS and creates 8 tasting cups.
+The system should calculate:
+- real cost per tasting cup
+- extra cost for small cups
+- extra labor cost
+- recommended selling price while keeping target margin
+
+Features:
+- build event pricing scenarios
+- save scenarios
+- compare scenarios
+- suggested quote output
+
+==================================================
+11. REPORTS PAGE
+==================================================
+
+Create a Reports page.
+
+Include:
+- monthly income report
+- monthly expense report
+- monthly profit summary
+- supplier expense report
+- product profitability report
+- cost of goods report
+
+Add export options:
+- CSV
+- printable report layout
+
+==================================================
+12. SETTINGS PAGE
+==================================================
+
+Create a Settings page for:
+- business name
+- business logo
+- franchise fee percentage (default 5%)
+- currency (NIS)
+- categories management
+- user roles and permissions
+
+==================================================
+BUSINESS LOGIC
+==================================================
+
+Add the following automatic calculations:
+- Net Profit = Total Income - Total Expenses
+- Franchise Fee = 5% of total income
+- Profit Margin % = Net Profit / Total Income
+- Product Cost = sum of all ingredient costs in the recipe
+- Gross Profit = Selling Price - Product Cost
+- Cost Percentage = Product Cost / Selling Price
+
+==================================================
+DESIGN REQUIREMENTS
+==================================================
+
+Use a clean, modern, premium admin dashboard style.
+The business owner is highly visual, so the system must feel very clear and easy to scan.
+
+Design style:
+- modern cards
+- rounded sections
+- clean tables
+- soft shadows
+- clear spacing
+- strong visual hierarchy
+- charts and summaries
+- mobile responsive
+- desktop-first layout
+- simple professional color palette
+- easy to read Hebrew-friendly layout support
+
+If possible, support RTL layout or prepare the UI to work well for Hebrew content.
+
+==================================================
+TECHNICAL / STRUCTURE REQUIREMENTS
+==================================================
+
+Please generate:
+- full app structure
+- all pages
+- data models / collections
+- relationships between suppliers, expenses, ingredients, recipes, products, and reports
+- forms for adding/editing data
+- tables and cards for viewing data
+- dashboard summaries and charts
+- role-based access structure
+
+Start by generating the full working V1 version with these pages fully usable:
+1. Dashboard
+2. Income
+3. Expenses
+4. Suppliers
+5. Receipts
+
+Then prepare the rest of the pages and structure for V2 and V3:
+- Products
+- Ingredients
+- Recipes
+- Profitability
+- Events & Catering Pricing
+- Reports
+- Settings
+
+Make the app feel like a real internal business operating system, not just a simple form app.
+
+---
+
+## Pages
+
+### בית
+https://example.com
+מערכת ניהול עסקי פנימית חכמה לחנות מיצים ושייקים. קבל שקיפות מלאה על הכנסות, הוצאות ורווחיות במקום אחד. פתרונות בריאות לעובדים מרחוק ולעצמאים.
+
+### לוח בקרה
+https://example.com/dashboard
+לוח בקרה ויזואלי פרימיום שמציג רווח נקי, הוצאות, הכנסות ומגמות חודשיות בזמן אמת. כלים לייזמים חדשניים בישראל שרוצים לנהל עם ראש פנוי ובהירות מלאה.
+
+### הכנסות והוצאות
+https://example.com/income-expenses
+מעקב מדויק אחר הכנסות והוצאות לפי קטגוריה, ספק ותאריך. ייצא דוחות, צרף קבלות ובדוק את מצב העסק בשנייה. אורח חיים בריא לעצמאים מתחיל בניהול פיננסי נכון.
+
+### ספקים וקבלות
+https://example.com/suppliers-receipts
+נהל את כל הספקים, ימי ההזמנה, פרטי הקשר והקבלות במקום אחד מסודר. מבנה מוכן לזיהוי חכם של קבלות בעתיד. משה ה פתרונות לעסקים שרוצים סדר תפעולי אמיתי.
+
+### מוצרים, רווחיות ותמחור
+https://example.com/products-profitability-pricing
+חשב עלות מוצר לפי מתכון, נתח רווחיות לכל פריט וצור תמחור חכם לאירועים, קייטרינג וקופסאות מתנה. פתרונות בריאות לעובדים מרחוק ולעסקי מזון שרוצים לצמוח.
+
+### צור קשר
+https://example.com/contact
+יש לך שאלה על מערכת הניהול או רוצה להתחיל? צור קשר עם משה ה עכשיו ותקבל מענה מהיר. כלים לייזמים חדשניים בישראל מחכים לך — אל תישאר לבד עם הניהול.
+
+## Legal & Policy
+
+### Privacy Policy
+https://example.com/privacy
+Information about how user data is collected, stored, and protected.
+
+### Terms & Conditions
+https://example.com/terms
+Legal terms describing service usage, rights, and policies.
+
+### Accessibility Statement
+https://example.com/accessibility
+Information about WCAG compliance and accessibility features.
+
+---
+
+## How to Contact Us
+
+- (No contact details configured yet.)
+
+### Contact form
+- URL: https://example.com/contact
+- Endpoint: https://example.com/api/email/contact-form
+- Method: POST
+- Content-Type: application/json
+- Fields:
+  - `name` (text, required)
+  - `email` (email, required)
+  - `phone` (tel)
+  - `message` (textarea, required)
+  - `privacy_consent` (checkbox, required)
+
+---
+
+# Business Context (for LLM understanding)
+
+## About משה ה
+Build a modern internal business management web app for a juice and smoothie shop called "18 Karrots".
+
+This is NOT a customer app.
+This is an internal management system for the business owners and staff.
+
+The purpose of the system is to give full operational and financial clarity in one place, including:
+- income tracking
+- expense tracking
+- supplier management
+- receipt storage
+- product costing
+- profitability analysis
+- event / catering pricing
+- business overview dashboard
+
+The business currently has only one branch.
+Do not build a franchise system.
+Do not build customer ordering features.
+Focus only on internal management.
+
+==================================================
+CORE GOALS
+==================================================
+
+The system should help the business understand:
+- total income
+- total expenses
+- net profit
+- cost of goods
+- supplier-related expenses
+- product profitability
+- waste and inefficiency
+- smart pricing for events, tastings, gift boxes, and catering
+
+The UI must be very clean, modern, visual, and easy to understand for a non-technical user.
+Use cards, charts, summary blocks, filters, and clean tables.
+Make the dashboard feel premium and simple.
+
+==================================================
+USER ROLES
+==================================================
+
+Create these roles:
+1. Admin
+- full access to everything
+- can add/edit/delete all records
+- can manage suppliers, products, ingredients, recipes, income, expenses, receipts, and event pricing
+
+2. Staff
+- limited access
+- can add income and expenses
+- can upload receipts
+- can view suppliers
+- cannot change core settings or delete important data
+
+==================================================
+MAIN SECTIONS / PAGES
+==================================================
+
+Create the following main pages in the app sidebar:
+
+1. Dashboard
+2. Income
+3. Expenses
+4. Suppliers
+5. Receipts
+6. Products
+7. Ingredients
+8. Recipes
+9. Profitability
+10. Events & Catering Pricing
+11. Reports
+12. Settings
+
+==================================================
+1. DASHBOARD PAGE
+==================================================
+
+Create a visual dashboard showing monthly business overview.
+
+Top summary cards:
+- Total Income This Month
+- Total Expenses This Month
+- Net Profit This Month
+- Profit Margin %
+- Cost of Goods %
+- Franchise Fee 5%
+
+Charts:
+- Monthly income vs expenses
+- Expenses by category
+- Expenses by supplier
+- Income by source
+- Profit trend by month
+
+Widgets / tables:
+- Recent expenses
+- Recent income
+- Low stock alerts
+- Upcoming supplier order reminders
+- Recent uploaded receipts
+
+Add filters:
+- date range
+- month
+- source
+- supplier
+- category
+
+==================================================
+2. INCOME PAGE
+==================================================
+
+Create an Income Management page.
+
+Allow adding income records with the following fields:
+- Date
+- Source (POS / Kiosk / Wolt / Catering / Events / Other)
+- Amount
+- Payment Notes
+- Reference Number
+- Notes
+
+Features:
+- add income
+- edit income
+- delete income
+- filter by date and source
+- monthly total
+- export table
+
+==================================================
+3. EXPENSES PAGE
+==================================================
+
+Create an Expense Management page.
+
+Allow adding expense records with:
+- Date
+- Supplier
+- Category
+- Amount
+- Payment Method
+- Receipt Image
+- Description
+- Notes
+
+Expense categories should include:
+- Fruits
+- Frozen Goods
+- Desserts
+- Plastic / Packaging
+- Cleaning
+- Utilities
+- Salaries
+- Rent
+- Equipment
+- Marketing
+- Other
+
+Features:
+- add expense
+- edit expense
+- delete expense
+- attach/upload receipt image
+- filter by supplier, category, date
+- show monthly expense total
+- export table
+
+==================================================
+4. SUPPLIERS PAGE
+==================================================
+
+Create a Suppliers page.
+
+Each supplier should include:
+- Supplier Name
+- Category
+- Contact Person
+- Phone Number
+- Email
+- Fixed Order Day
+- Delivery Time (days)
+- Standard Weekly Order Notes
+- Products This Supplier Provides
+- Reminder Enabled
+- Notes
+
+Features:
+- supplier list view
+- supplier detail page
+- add/edit/delete supplier
+- supplier category filters
+- reminder indicator for ordering day
+- show related expenses for each supplier
+
+==================================================
+5. RECEIPTS PAGE
+==================================================
+
+Create a Receipts page for receipt storage and organization.
+
+Each receipt record should include:
+- Receipt Image
+- Upload Date
+- Expense Date
+- Supplier
+- Amount
+- Category
+- Notes
+
+If possible, add basic AI/OCR-ready structure so the system is prepared to support:
+- extracting amount
+- extracting date
+- extracting supplier name
+
+Even if OCR is not fully functional, structure the page and data model for future support.
+
+Features:
+- upload receipt image
+- view receipt gallery/list
+- link receipt to expense
+- filter by supplier/date/category
+
+==================================================
+6. PRODUCTS PAGE
+==================================================
+
+Create a Products page.
+
+Each product should include:
+- Product Name
+- Category
+- Selling Price
+- Description
+- Active / Inactive
+
+Examples:
+- juices
+- smoothies
+- bowls
+- desserts
+- catering items
+- gift boxes
+
+Features:
+- add/edit/delete product
+- product list
+- product details
+- link each product to recipe
+- show calculated product cost
+- show profit margin
+
+==================================================
+7. INGREDIENTS PAGE
+==================================================
+
+Create an Ingredients page.
+
+Each ingredient should include:
+- Ingredient Name
+- Supplier
+- Purchase Unit (kg / liter / unit / box)
+- Purchase Cost
+- Cost Per Unit
+- Current Stock
+- Minimum Stock Alert
+- Notes
+
+Features:
+- add/edit/delete ingredient
+- track ingredient costs
+- track stock level
+- low stock alerts
+- link ingredient to supplier
+- link ingredient to recipes
+
+==================================================
+8. RECIPES PAGE
+==================================================
+
+Create a Recipes page that connects products to ingredients.
+
+Each recipe row should include:
+- Product
+- Ingredient
+- Quantity Used
+- Unit
+- Notes
+
+Features:
+- multiple ingredients per product
+- calculate total product cost automatically from recipe ingredients
+- show recipe breakdown for each product
+
+==================================================
+9. PROFITABILITY PAGE
+==================================================
+
+Create a Profitability page.
+
+This page should show:
+- Product Name
+- Selling Price
+- Total Cost
+- Gross Profit
+- Profit Margin %
+- Cost Percentage
+
+Features:
+- sort by most profitable
+- sort by least profitable
+- identify low-margin products
+- visual indicators for good / medium / low margin
+- profitability table
+- product profit cards
+
+Also include a basic section for:
+- waste / inefficiency insights
+- high-cost ingredients affecting margins
+
+==================================================
+10. EVENTS & CATERING PRICING PAGE
+==================================================
+
+Create a page for event pricing, tasting cups, catering, gift boxes, and culinary tours.
+
+Allow creating pricing scenarios.
+
+Each scenario should include:
+- Scenario Name
+- Product Used
+- Base Product Cost
+- Number of Servings / Tasting Cups Produced
+- Extra Packaging Cost
+- Extra Labor Cost
+- Transport Cost
+- Desired Profit Margin %
+- Final Recommended Price
+
+Example logic:
+A large smoothie costs 40 NIS and creates 8 tasting cups.
+The system should calculate:
+- real cost per tasting cup
+- extra cost for small cups
+- extra labor cost
+- recommended selling price while keeping target margin
+
+Features:
+- build event pricing scenarios
+- save scenarios
+- compare scenarios
+- suggested quote output
+
+==================================================
+11. REPORTS PAGE
+==================================================
+
+Create a Reports page.
+
+Include:
+- monthly income report
+- monthly expense report
+- monthly profit summary
+- supplier expense report
+- product profitability report
+- cost of goods report
+
+Add export options:
+- CSV
+- printable report layout
+
+==================================================
+12. SETTINGS PAGE
+==================================================
+
+Create a Settings page for:
+- business name
+- business logo
+- franchise fee percentage (default 5%)
+- currency (NIS)
+- categories management
+- user roles and permissions
+
+==================================================
+BUSINESS LOGIC
+==================================================
+
+Add the following automatic calculations:
+- Net Profit = Total Income - Total Expenses
+- Franchise Fee = 5% of total income
+- Profit Margin % = Net Profit / Total Income
+- Product Cost = sum of all ingredient costs in the recipe
+- Gross Profit = Selling Price - Product Cost
+- Cost Percentage = Product Cost / Selling Price
+
+==================================================
+DESIGN REQUIREMENTS
+==================================================
+
+Use a clean, modern, premium admin dashboard style.
+The business owner is highly visual, so the system must feel very clear and easy to scan.
+
+Design style:
+- modern cards
+- rounded sections
+- clean tables
+- soft shadows
+- clear spacing
+- strong visual hierarchy
+- charts and summaries
+- mobile responsive
+- desktop-first layout
+- simple professional color palette
+- easy to read Hebrew-friendly layout support
+
+If possible, support RTL layout or prepare the UI to work well for Hebrew content.
+
+==================================================
+TECHNICAL / STRUCTURE REQUIREMENTS
+==================================================
+
+Please generate:
+- full app structure
+- all pages
+- data models / collections
+- relationships between suppliers, expenses, ingredients, recipes, products, and reports
+- forms for adding/editing data
+- tables and cards for viewing data
+- dashboard summaries and charts
+- role-based access structure
+
+Start by generating the full working V1 version with these pages fully usable:
+1. Dashboard
+2. Income
+3. Expenses
+4. Suppliers
+5. Receipts
+
+Then prepare the rest of the pages and structure for V2 and V3:
+- Products
+- Ingredients
+- Recipes
+- Profitability
+- Events & Catering Pricing
+- Reports
+- Settings
+
+Make the app feel like a real internal business operating system, not just a simple form app.
+
+## Target Audience
+- יזמים חדשניים
+- חובבי בריאות
+- עובדים מרחוק
+
+## Industry
+General
+
+---
+
+# Machine-readable feeds
+
+- Sitemap (XML): https://example.com/sitemap.xml
+- Robots: https://example.com/robots.txt
+- Flattened page text (for LLMs): https://example.com/llms-full.txt

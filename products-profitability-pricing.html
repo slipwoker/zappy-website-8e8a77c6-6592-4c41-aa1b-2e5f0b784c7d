@@ -1,0 +1,1967 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <title>גלה אילו מוצרים באמת מרוויחים לך — משה ה</title>
+    <meta name="description" content="חשב עלות מוצר לפי מתכון, נתח רווחיות לכל פריט וצור תמחור חכם לאירועים, קייטרינג וקופסאות מתנה. פתרונות בריאות לעובדים מרחוק ולעסקי מזון שרוצים לצמוח.">
+    <meta name="keywords" content="פתרונות בריאות לעובדים מרחוק, תמחור מוצרי מזון, ניתוח רווחיות מוצרים, תמחור קייטרינג ואירועים">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Zappy Analytics -->
+<script>
+(function() {
+  'use strict';
+  
+  // Configuration
+  var config = {
+    websiteId: '8e8a77c6-6592-4c41-aa1b-2e5f0b784c7d',
+    apiUrl: 'https://api.zappy5.com/api/analytics/track',
+    sessionDuration: 30 * 60 * 1000, // 30 minutes
+    visitorDuration: 30 * 24 * 60 * 60 * 1000, // 30 days
+    trackPageViews: true,
+    trackClicks: true,
+    trackFormSubmissions: true
+  };
+  
+  // Generate or retrieve persistent visitor ID (30 days)
+  function getVisitorId() {
+    var visitorKey = 'zappy_visitor_' + config.websiteId;
+    var visitor = null;
+    
+    try {
+      visitor = localStorage.getItem(visitorKey);
+      if (visitor) {
+        var visitorData = JSON.parse(visitor);
+        var now = Date.now();
+        
+        // Check if visitor ID is still valid (30 days)
+        if (now - visitorData.created < config.visitorDuration) {
+          // Update last seen timestamp
+          visitorData.lastSeen = now;
+          localStorage.setItem(visitorKey, JSON.stringify(visitorData));
+          return visitorData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: LocalStorage not available');
+    }
+    
+    // Generate new visitor ID
+    var newVisitorId = 'zv_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      localStorage.setItem(visitorKey, JSON.stringify({
+        id: newVisitorId,
+        created: Date.now(),
+        lastSeen: Date.now()
+      }));
+    } catch (e) {
+      // Continue without local storage
+    }
+    
+    return newVisitorId;
+  }
+  
+  // Generate or retrieve session ID (30 minutes)
+  function getSessionId() {
+    var sessionKey = 'zappy_session_' + config.websiteId;
+    var session = null;
+    
+    try {
+      session = sessionStorage.getItem(sessionKey);
+      if (session) {
+        var sessionData = JSON.parse(session);
+        var now = Date.now();
+        
+        // Check if session is still valid
+        if (now - sessionData.timestamp < config.sessionDuration) {
+          // Update timestamp
+          sessionData.timestamp = now;
+          sessionStorage.setItem(sessionKey, JSON.stringify(sessionData));
+          return sessionData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: SessionStorage not available');
+    }
+    
+    // Generate new session ID
+    var newSessionId = 'zs_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      sessionStorage.setItem(sessionKey, JSON.stringify({
+        id: newSessionId,
+        timestamp: Date.now()
+      }));
+    } catch (e) {
+      // Continue without session storage
+    }
+    
+    return newSessionId;
+  }
+  
+  var visitorId = getVisitorId();
+  var sessionId = getSessionId();
+  
+  // Track an event
+  function trackEvent(eventType, data) {
+    data = data || {};
+    
+    var eventData = {
+      website_id: config.websiteId,
+      event_type: eventType,
+      page_path: window.location.pathname,
+      referrer: document.referrer || 'direct',
+      visitor_id: visitorId,
+      session_id: sessionId,
+      metadata: data
+    };
+    
+    // Use sendBeacon if available (better for page unload events)
+    if (navigator.sendBeacon) {
+      var blob = new Blob([JSON.stringify(eventData)], { type: 'application/json' });
+      navigator.sendBeacon(config.apiUrl, blob);
+    } else {
+      // Fallback to fetch
+      fetch(config.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eventData),
+        keepalive: true
+      }).catch(function(error) {
+        console.warn('Zappy Analytics: Failed to track event', error);
+      });
+    }
+  }
+  
+  // Track page view
+  if (config.trackPageViews) {
+    trackEvent('pageview', {
+      title: document.title,
+      url: window.location.href
+    });
+  }
+  
+  // Track clicks on important elements
+  if (config.trackClicks) {
+    document.addEventListener('click', function(e) {
+      var target = e.target;
+      
+      // Track button clicks (counted as actions)
+      if (target.tagName === 'BUTTON' || target.closest('button')) {
+        var button = target.tagName === 'BUTTON' ? target : target.closest('button');
+        trackEvent('click', {
+          element: 'button',
+          text: button.textContent.trim().substring(0, 100),
+          id: button.id || null,
+          class: button.className || null
+        });
+      }
+      
+      // Track link clicks (navigation - not counted as actions)
+      else if (target.tagName === 'A' || target.closest('a')) {
+        var link = target.tagName === 'A' ? target : target.closest('a');
+        trackEvent('navigation', {
+          element: 'link',
+          text: link.textContent.trim().substring(0, 100),
+          href: link.href,
+          external: link.hostname !== window.location.hostname
+        });
+      }
+    }, true);
+  }
+  
+  // Track form submissions
+  if (config.trackFormSubmissions) {
+    document.addEventListener('submit', function(e) {
+      var form = e.target;
+      
+      trackEvent('form_submit', {
+        form_id: form.id || null,
+        form_name: form.name || null,
+        form_action: form.action || null,
+        form_method: form.method || 'GET'
+      });
+    }, true);
+  }
+  
+  // Track time on page (send on page unload)
+  var pageLoadTime = Date.now();
+  
+  window.addEventListener('beforeunload', function() {
+    var timeOnPage = Math.floor((Date.now() - pageLoadTime) / 1000); // in seconds
+    
+    trackEvent('page_unload', {
+      time_on_page: timeOnPage,
+      page_path: window.location.pathname
+    });
+  });
+  
+  // Expose tracking function globally for custom events
+  window.zappyAnalytics = {
+    track: trackEvent,
+    getVisitorId: function() { return visitorId; },
+    getSessionId: function() { return sessionId; }
+  };
+  
+})();
+</script>
+<!-- End Zappy Analytics -->
+    <meta property="og:title" content="גלה אילו מוצרים באמת מרוויחים לך — משה ה">
+    <meta property="og:description" content="חשב עלות מוצר לפי מתכון, נתח רווחיות לכל פריט וצור תמחור חכם לאירועים, קייטרינג וקופסאות מתנה. פתרונות בריאות לעובדים מרחוק ולעסקי מזון שרוצים לצמוח.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="גלה אילו מוצרים באמת מרוויחים לך — משה ה">
+    <meta name="twitter:description" content="חשב עלות מוצר לפי מתכון, נתח רווחיות לכל פריט וצור תמחור חכם לאירועים, קייטרינג וקופסאות מתנה. פתרונות בריאות לעובדים מרחוק ולעסקי מזון שרוצים לצמוח.">
+    <meta property="og:type" content="website">
+  <meta property="og:locale" content="he_IL">
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Cookie Consent -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css">
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
+    <!-- Mickidum Accessibility Toolbar -->
+    <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
+    <link rel="stylesheet" href="/styles.css">
+
+    <style id="zappy-dropdown-submenu-styles">
+      /* ========== DESKTOP DROPDOWN SUBMENU STYLES ========== */
+      /* Base styles for dropdown submenus - parent must be positioned */
+      .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { position: relative; }
+      /* Submenu base - hidden by default */
+      .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { display: block !important; position: absolute !important; top: 100%; left: 0; min-width: 220px; background: white; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); padding: 8px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; z-index: 1000; list-style: none; pointer-events: none; }
+      /* CRITICAL: Desktop hover styles to show dropdown */
+      .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Submenu item styling */
+      .sub-menu li { list-style: none; margin: 0; padding: 0; }
+      .sub-menu a { display: block !important; padding: 10px 16px !important; color: var(--text-dark, #333) !important; font-weight: 500; text-decoration: none; white-space: nowrap; transition: background-color 0.2s; }
+      .sub-menu .zappy-nav-child > a { padding-left: 28px !important; font-size: 0.9em !important; opacity: 0.85 !important; }
+      [dir="rtl"] .sub-menu .zappy-nav-child > a, html[lang="he"] .sub-menu .zappy-nav-child > a, html[lang="ar"] .sub-menu .zappy-nav-child > a { padding-left: 10px !important; padding-right: 28px !important; }
+      .sub-menu .zappy-nav-parent > a { font-weight: 600 !important; }
+      .sub-menu a:hover { background-color: #f5f5f5; }
+      /* RTL (Hebrew/Arabic) dropdown positioning */
+      [dir="rtl"] .nav-menu .sub-menu, [dir="rtl"] nav .sub-menu, [dir="rtl"] .navbar .sub-menu, html[lang="he"] .nav-menu .sub-menu, html[lang="he"] nav .sub-menu, html[lang="he"] .navbar .sub-menu, html[lang="ar"] .nav-menu .sub-menu, html[lang="ar"] nav .sub-menu, html[lang="ar"] .navbar .sub-menu { left: auto !important; right: 0 !important; }
+      /* Hide empty dropdown menus (exclude catalog sub-menus that use <a> children instead of <li>) */
+      .sub-menu:empty, .sub-menu:not(:has(li:not(.zappy-hidden-menu-item))):not(:has(> a)), .sub-menu:not(:has(li)):not(:has(> a)) { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+      /* Desktop: show submenu on Menu Group hover */
+      li:has(.menu-group-title):hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Menu Group title styling */
+      .nav-menu > li > .menu-group-title, #navMenu > li > .menu-group-title { display: inline-block; padding: 0.5rem 1rem; cursor: default; user-select: none; }
+      
+      /* ========== MOBILE SUBMENU STYLES ========== */
+      @media (max-width: 768px) {
+        .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { position: static !important; transform: none !important; box-shadow: none !important; background: transparent !important; max-height: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; padding: 0 !important; border-radius: 0 !important; }
+        .navbar .sub-menu.mobile-expanded, .nav-menu .sub-menu.mobile-expanded, #navMenu .sub-menu.mobile-expanded { max-height: none !important; overflow-y: visible !important; opacity: 1 !important; visibility: visible !important; padding: 8px 0 8px 16px !important; }
+        [dir="rtl"] .sub-menu.mobile-expanded, html[lang="he"] .sub-menu.mobile-expanded { padding: 8px 16px 8px 0 !important; }
+        /* Disable hover behavior on mobile */
+        .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 0; visibility: hidden; pointer-events: none; }
+        .nav-menu li > .sub-menu.mobile-expanded, nav li > .sub-menu.mobile-expanded, .navbar li > .sub-menu.mobile-expanded, #navMenu li > .sub-menu.mobile-expanded { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+        .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { display: flex !important; flex-wrap: wrap !important; align-items: center !important; position: relative !important; min-height: 44px !important; }
+        .nav-menu li:has(.sub-menu) > a, nav li:has(.sub-menu) > a, .navbar li:has(.sub-menu) > a, #navMenu li:has(.sub-menu) > a { flex: 1 !important; min-width: 0 !important; }
+        .nav-menu li:has(.sub-menu) > .menu-group-title, nav li:has(.sub-menu) > .menu-group-title, .navbar li:has(.sub-menu) > .menu-group-title, #navMenu li:has(.sub-menu) > .menu-group-title { flex: 1 !important; min-width: 0 !important; padding: 0 !important; line-height: inherit !important; }
+        .nav-menu li:has(.sub-menu) > .sub-menu, nav li:has(.sub-menu) > .sub-menu, .navbar li:has(.sub-menu) > .sub-menu, #navMenu li:has(.sub-menu) > .sub-menu { flex-basis: 100% !important; width: 100% !important; }
+        .nav-menu li:has(.sub-menu) > a [class*="chevron"], .nav-menu li:has(.sub-menu) > a [class*="arrow"], .nav-menu li:has(.sub-menu) > a .fa-chevron-down, .nav-menu li:has(.sub-menu) > a .fa-angle-down, nav li:has(.sub-menu) > a [class*="chevron"], nav li:has(.sub-menu) > a [class*="arrow"], #navMenu li:has(.sub-menu) > a [class*="chevron"], #navMenu li:has(.sub-menu) > a [class*="arrow"] { display: none !important; visibility: hidden !important; }
+        .mobile-submenu-toggle { display: flex !important; align-items: center !important; justify-content: center !important; width: 44px !important; height: auto !important; background: transparent !important; border: none !important; cursor: pointer !important; color: var(--text-dark) !important; position: static !important; flex-shrink: 0 !important; align-self: stretch !important; z-index: 2 !important; padding: 0 !important; margin: 0 !important; }
+        .mobile-submenu-toggle::after { content: '' !important; width: 0 !important; height: 0 !important; border-left: 6px solid transparent !important; border-right: 6px solid transparent !important; border-top: 7px solid currentColor !important; transition: transform 0.3s ease !important; }
+        .mobile-submenu-toggle.expanded::after { transform: rotate(180deg) !important; }
+        .sub-menu a { padding: 10px 0 !important; display: block !important; color: var(--text-dark) !important; white-space: normal !important; }
+        .sub-menu .zappy-nav-child > a { padding-left: 28px !important; font-size: 0.9em !important; opacity: 0.85 !important; }
+        [dir="rtl"] .sub-menu .zappy-nav-child > a, html[lang="he"] .sub-menu .zappy-nav-child > a, html[lang="ar"] .sub-menu .zappy-nav-child > a { padding-left: 0 !important; padding-right: 28px !important; }
+        .sub-menu .zappy-nav-parent > a { font-weight: 600 !important; }
+        .nav-menu.active, #navMenu.active { max-width: 100vw !important; overflow-x: hidden !important; box-sizing: border-box !important; }
+        .navbar .sub-menu li a, nav.navbar .sub-menu li a, .zappy-products-dropdown .sub-menu a { color: var(--text-dark) !important; }
+      }
+      @media (min-width: 769px) { .mobile-submenu-toggle { display: none !important; } }
+    </style>
+
+    <style id="zappy-widget-visibility">
+      #mic-access-tool-general-button, .mic-access-tool-general-button,
+      #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+      ._access-icon, #mic-access-tool-box, .mic-access-tool-box,
+      #mic-init-access-tool #mic-access-tool-box, div[id*="mic-access-tool-box"], ._access-menu {
+        display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important;
+      }
+    </style>
+</head>
+<body>
+
+  <nav class="navbar" dir="rtl">
+  <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+    <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+  </button>
+
+  <button class="phone-header-btn" data-phone="[business_phone]" aria-label="Call">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+    </svg>
+  </button>
+
+  <div class="nav-container">
+    <div class="nav-right-group"><div class="nav-brand">
+      <a href="/" class="logo-link">
+        <img src="/assets/general-logo.webp" alt="משה ה" class="logo">
+      </a>
+    </div><ul class="nav-menu" id="navMenu"><li><a href="/dashboard">לוח בקרה</a></li><li><a href="/income-expenses">הכנסות והוצאות</a></li><li><a href="/suppliers-receipts">ספקים וקבלות</a></li><li><a href="/products-profitability-pricing">מוצרים, רווחיות ותמחור</a></li></ul></div>
+
+    
+
+    <div class="nav-cta-container">
+      <a href="/contact" class="nav-cta-btn">צור קשר</a>
+    </div>
+  </div>
+</nav>
+<script>
+
+// Navbar Mobile Menu Toggle and Contrast Fix
+(function() {
+  // Use 'load' event instead of 'DOMContentLoaded' to ensure we run AFTER all other scripts
+  window.addEventListener('load', function() {
+    
+    // FIX MOBILE BUTTON CONTRAST
+    // Detect navbar background color and apply contrasting color to mobile buttons
+    const navbar = document.querySelector('.navbar, nav, header');
+    if (!navbar) {
+      console.log('[Navbar] Navbar element not found');
+      return;
+    }
+    
+    // DECLARE VARIABLES EARLY to avoid Temporal Dead Zone errors
+    // These are used in multiple places below
+    let mobileToggle = document.getElementById('mobileToggle') ||
+                       document.querySelector('.mobile-toggle') ||
+                       document.querySelector('.hamburger') ||
+                       document.querySelector('.hamburger-menu') ||
+                       document.querySelector('.menu-toggle') ||
+                       document.querySelector('.burger-menu') ||
+                       document.querySelector('[aria-label="Menu"]') ||
+                       document.querySelector('[aria-label="תפריט"]');
+    
+    const phoneBtn = document.querySelector('.phone-header-btn');
+    
+    const computedStyle = window.getComputedStyle(navbar);
+    let bgColor = computedStyle.backgroundColor;
+    
+    console.log('[Navbar] Initial navbar background:', bgColor);
+    
+    // Check if background is transparent or rgba with 0 alpha
+    const isTransparent = bgColor === 'transparent' || 
+                         bgColor === 'rgba(0, 0, 0, 0)' ||
+                         (bgColor.startsWith('rgba') && bgColor.includes(', 0)'));
+    
+    if (isTransparent) {
+      // Check for background-image or gradient
+      const bgImage = computedStyle.backgroundImage;
+      if (bgImage && bgImage !== 'none') {
+        console.log('[Navbar] Navbar has background image/gradient, using dark text');
+        bgColor = 'rgb(240, 240, 240)'; // Assume light background
+      } else {
+        // Transparent navbar - check body background
+        const bodyBg = window.getComputedStyle(document.body).backgroundColor;
+        console.log('[Navbar] Navbar transparent, using body background:', bodyBg);
+        bgColor = bodyBg;
+      }
+    }
+    
+    // Calculate luminance to determine if background is light or dark
+    const rgb = bgColor.match(/\d+/g);
+    if (rgb && rgb.length >= 3) {
+      const r = parseInt(rgb[0]);
+      const g = parseInt(rgb[1]);
+      const b = parseInt(rgb[2]);
+      const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+      
+      // Mobile button colors are set by Claude's AI-generated CSS (same as .nav-menu a)
+      // No dynamic color overrides needed - colors come from the generated navbar CSS
+      console.log('[Navbar] Mobile button colors preserved from Claude CSS (luminance:', luminance.toFixed(2) + ')');
+      
+      // FIX ICON SIZES - Ensure SVGs are properly sized and visible
+      // INJECT CRITICAL CSS TO OVERRIDE ANY CONFLICTING RULES
+      const criticalCSS = document.createElement('style');
+      criticalCSS.id = 'zappy-mobile-nav-fix';
+      const htmlLang = document.documentElement.lang || 'en';
+      const htmlDir = document.documentElement.dir || 'ltr';
+      // Check both dir attribute AND lang for RTL detection
+      // dir="rtl" is the most reliable indicator
+      const isRTL = htmlDir === 'rtl' || htmlLang === 'he' || htmlLang === 'ar';
+      
+      criticalCSS.textContent = `
+        /* Hide mobile buttons on desktop, show only on mobile */
+        @media (min-width: 769px) {
+          .mobile-toggle,
+          .phone-header-btn {
+            display: none !important;
+          }
+        }
+        
+        /* Show and position mobile buttons correctly on mobile */
+        @media (max-width: 768px) {
+          .mobile-toggle,
+          .phone-header-btn {
+            position: absolute !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            z-index: 1001 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 36px !important;
+            height: 36px !important;
+            border-radius: 50% !important;
+            border: none !important;
+            cursor: pointer !important;
+            padding: 6px !important;
+            background: none !important;
+            color: var(--nav-text, var(--text-dark)) !important;
+          }
+          
+          /* LTR positioning (default): hamburger LEFT, phone RIGHT */
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .mobile-toggle,
+          html[dir="ltr"] .mobile-toggle {
+            left: 12px !important;
+            right: auto !important;
+          }
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .phone-header-btn,
+          html[dir="ltr"] .phone-header-btn {
+            right: 12px !important;
+            left: auto !important;
+          }
+          
+          /* RTL positioning: hamburger RIGHT, phone LEFT */
+          html[dir="rtl"] .mobile-toggle,
+          html[lang="he"] .mobile-toggle,
+          html[lang="ar"] .mobile-toggle {
+            right: 12px !important;
+            left: auto !important;
+          }
+          html[dir="rtl"] .phone-header-btn,
+          html[lang="he"] .phone-header-btn,
+          html[lang="ar"] .phone-header-btn {
+            left: 12px !important;
+            right: auto !important;
+          }
+          
+          /* CRITICAL: Ensure nav-container has min-height on mobile */
+          /* All children are positioned absolutely/fixed on mobile, so height:auto collapses to 0 */
+          .nav-container {
+            min-height: 70px !important;
+            position: relative !important;
+          }
+          
+          /* Ensure SVG icons are properly sized and inherit color */
+          .mobile-toggle svg,
+          .phone-header-btn svg {
+            width: 24px !important;
+            height: 24px !important;
+            /* Don't force display - let JavaScript control hamburger/close toggle */
+          }
+          
+          /* Reset nav-cta-container on mobile - remove desktop box-shadow/padding */
+          /* that creates a visible ghost box when CTA button is hidden */
+          .nav-cta-container {
+            box-shadow: none !important;
+            padding: 0 !important;
+          }
+          
+          /* Hide nav-cta-container entirely on mobile when there's no lang-switcher */
+          /* (only the CTA button is inside, and it's hidden on mobile) */
+          .nav-cta-container:not(:has(.lang-switcher)) {
+            display: none !important;
+          }
+          
+          /* CRITICAL: Prevent hero image fade gradient from bleeding over headline text */
+          /* The .image-fade-gradient has bottom: -30px (extends below parent) */
+          /* On mobile stacked layout, this overlaps the h1 text below the image */
+          .hero-image-column {
+            overflow: hidden !important;
+          }
+          .image-fade-gradient {
+            bottom: 0 !important;
+          }
+          
+          /* Hide desktop language switcher on mobile - hamburger menu handles it */
+          /* High specificity to override stored CSS */
+          .lang-switcher,
+          .nav-cta-container .lang-switcher,
+          .nav-container .lang-switcher,
+          .navbar .lang-switcher,
+          .navbar .nav-cta-container .lang-switcher {
+            display: none !important;
+          }
+        }
+      `;
+      
+      // Remove existing fix if present and inject new one
+      const existing = document.getElementById('zappy-mobile-nav-fix');
+      if (existing) existing.remove();
+      document.head.appendChild(criticalCSS);
+      
+      console.log('[Navbar] Critical CSS injected for mobile nav positioning');
+      
+      // ONLY apply inline positioning styles on mobile viewport
+      // On desktop, the CSS handles hiding these buttons with display: none
+      // Inline styles were breaking desktop layout by overriding CSS
+      const isMobileViewport = window.innerWidth <= 768;
+      
+      if (mobileToggle) {
+        // Icon sizing applies to all viewports for consistency
+        const hamburgerIcon = mobileToggle.querySelector('.hamburger-icon');
+        const closeIcon = mobileToggle.querySelector('.close-icon');
+        
+        if (hamburgerIcon) {
+          hamburgerIcon.style.setProperty('width', '24px', 'important');
+          hamburgerIcon.style.setProperty('height', '24px', 'important');
+          hamburgerIcon.style.setProperty('display', 'block', 'important'); // Show hamburger by default
+        }
+        if (closeIcon) {
+          closeIcon.style.setProperty('width', '24px', 'important');
+          closeIcon.style.setProperty('height', '24px', 'important');
+          closeIcon.style.setProperty('display', 'none', 'important'); // Hide close icon by default
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          mobileToggle.style.setProperty('position', 'absolute', 'important');
+          mobileToggle.style.setProperty('top', '50%', 'important');
+          mobileToggle.style.setProperty('transform', 'translateY(-50%)', 'important');
+          mobileToggle.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          
+          console.log('[Navbar] Mobile toggle positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          mobileToggle.style.removeProperty('position');
+          mobileToggle.style.removeProperty('top');
+          mobileToggle.style.removeProperty('transform');
+          mobileToggle.style.removeProperty('z-index');
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared mobile toggle inline positioning');
+        }
+      }
+      
+      if (phoneBtn) {
+        // Icon sizing applies to all viewports
+        const phoneIcon = phoneBtn.querySelector('svg');
+        if (phoneIcon) {
+          phoneIcon.style.width = '24px';
+          phoneIcon.style.height = '24px';
+          phoneIcon.setAttribute('width', '24');
+          phoneIcon.setAttribute('height', '24');
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          phoneBtn.style.setProperty('position', 'absolute', 'important');
+          phoneBtn.style.setProperty('top', '50%', 'important');
+          phoneBtn.style.setProperty('transform', 'translateY(-50%)', 'important');
+          phoneBtn.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          
+          console.log('[Navbar] Phone button positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          phoneBtn.style.removeProperty('position');
+          phoneBtn.style.removeProperty('top');
+          phoneBtn.style.removeProperty('transform');
+          phoneBtn.style.removeProperty('z-index');
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared phone button inline positioning');
+        }
+      }
+    } else {
+      console.log('[Navbar] Could not parse background color:', bgColor);
+    }
+    
+    // MOBILE MENU TOGGLE
+    // Re-query in case DOM changed (mobileToggle already declared at top of function)
+    mobileToggle = document.getElementById('mobileToggle') ||
+                   document.querySelector('.mobile-toggle') ||
+                   document.querySelector('.hamburger') ||
+                   document.querySelector('.hamburger-menu') ||
+                   document.querySelector('.menu-toggle') ||
+                   document.querySelector('.burger-menu') ||
+                   document.querySelector('[aria-label="Menu"]') ||
+                   document.querySelector('[aria-label="תפריט"]');
+    
+    // EXPANDED SEARCH: Find nav menu by ID or class
+    const navMenu = document.getElementById('navMenu') ||
+                  document.querySelector('.nav-menu') ||
+                  document.querySelector('.nav-links') ||
+                  document.querySelector('nav ul:not(.submenu)');
+    
+    if (!mobileToggle || !navMenu) {
+      console.log('[Navbar] Mobile toggle or menu not found:', { toggle: !!mobileToggle, menu: !!navMenu });
+      return;
+    }
+    
+    // Ensure navMenu has ID for CSS targeting
+    if (!navMenu.id) {
+      navMenu.id = 'navMenu';
+    }
+    
+    console.log('[Navbar] Initializing mobile menu...');
+    
+    // Remove any existing event listeners by cloning the button
+    const newToggle = mobileToggle.cloneNode(true);
+    mobileToggle.parentNode.replaceChild(newToggle, mobileToggle);
+    
+    // Toggle menu on button click - use newToggle now
+    newToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const hamburgerIcon = this.querySelector('.hamburger-icon');
+      const closeIcon = this.querySelector('.close-icon');
+      const isActive = navMenu.classList.contains('active');
+      
+      if (isActive) {
+        // Close menu
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed');
+      } else {
+        // Open menu
+        navMenu.classList.add('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'none', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'block', 'important');
+        document.body.style.overflow = 'hidden';
+        console.log('[Navbar] Menu opened');
+      }
+    });
+    
+    // Close menu when clicking nav links (but NOT dropdown toggles)
+    const navLinks = navMenu.querySelectorAll('a');
+    navLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        // Don't close if it's a dropdown child (unless it's a real navigation link)
+        if (this.getAttribute('href') === '#') return;
+        
+        const hamburgerIcon = newToggle.querySelector('.hamburger-icon');
+        const closeIcon = newToggle.querySelector('.close-icon');
+        
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed (link clicked)');
+      });
+    });
+    
+    // DROPDOWN MENU TOGGLE (for mobile and touch devices)
+    var dropdownToggles = navMenu.querySelectorAll('.dropdown-toggle');
+    dropdownToggles.forEach(function(toggle) {
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var parent = this.closest('.nav-dropdown');
+        if (!parent) return;
+        
+        // Close other open dropdowns at the same level
+        var siblings = parent.parentNode.querySelectorAll('.nav-dropdown.open');
+        siblings.forEach(function(sib) {
+          if (sib !== parent) sib.classList.remove('open');
+        });
+        
+        parent.classList.toggle('open');
+        console.log('[Navbar] Dropdown toggled:', parent.classList.contains('open') ? 'open' : 'closed');
+      });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav-dropdown')) {
+        var openDropdowns = document.querySelectorAll('.nav-dropdown.open');
+        openDropdowns.forEach(function(dd) { dd.classList.remove('open'); });
+      }
+    });
+    
+    console.log('[Navbar] Dropdown handlers initialized for ' + dropdownToggles.length + ' dropdowns');
+    
+    // Phone button functionality (phoneBtn already declared at top of function)
+    if (phoneBtn) {
+      phoneBtn.addEventListener('click', function() {
+        // Get phone number from placeholder in page or use default
+        const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+        const phoneNumber = phoneLinks.length > 0 
+          ? phoneLinks[0].getAttribute('href').replace('tel:', '')
+          : '[business_phone]';
+        
+        window.location.href = 'tel:' + phoneNumber;
+        console.log('[Navbar] Phone button clicked');
+      });
+    }
+    
+    console.log('[Navbar] Mobile menu initialized successfully');
+    
+    // === WHATSAPP BUTTON VISIBILITY FIX ===
+    // Ensure WhatsApp floating button is hidden on desktop and visible on mobile
+    // IMPORTANT: Only target the floating button by its class, NOT generic wa.me links
+    const handleWhatsAppVisibility = function() {
+      const whatsappBtn = document.querySelector('.whatsapp-float');
+      if (whatsappBtn) {
+        const isDesktop = window.innerWidth >= 769;
+        if (isDesktop) {
+          whatsappBtn.style.setProperty('display', 'none', 'important');
+          whatsappBtn.style.setProperty('visibility', 'hidden', 'important');
+          whatsappBtn.style.setProperty('opacity', '0', 'important');
+          whatsappBtn.style.setProperty('pointer-events', 'none', 'important');
+          console.log('[WhatsApp] Button hidden on desktop');
+        } else {
+          whatsappBtn.style.removeProperty('display');
+          whatsappBtn.style.removeProperty('visibility');
+          whatsappBtn.style.removeProperty('opacity');
+          whatsappBtn.style.removeProperty('pointer-events');
+          console.log('[WhatsApp] Button visible on mobile');
+        }
+      }
+    };
+    
+    // Run on load
+    handleWhatsAppVisibility();
+    
+    // Run on resize with debouncing
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(handleWhatsAppVisibility, 100);
+    });
+  });
+})();
+
+</script>
+  
+  <main>
+    <section class="products-profitability-pricing-hero-section" data-layout-spec="מוצרים, רווחיות ותמחור-hero" dir="rtl" data-hero-type="fullscreen-scrim">
+
+  <!-- Decorative warm blob background -->
+  <div class="ppp-blob-decor" aria-hidden="true"></div>
+
+  <!-- Decorative botanical leaf right -->
+  <svg class="ppp-leaf-right" aria-hidden="true" data-no-icon-edit="true" viewBox="0 0 200 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M180 10 C160 40, 80 60, 60 120 C40 180, 50 260, 100 310 C100 310, 90 240, 120 200 C150 160, 200 140, 195 80 Z" fill="#2D5A3D" opacity="0.10"></path>
+    <path d="M100 310 C80 260, 90 200, 120 200" stroke="#2D5A3D" stroke-width="1.5" opacity="0.08" fill="none"></path>
+    <path d="M100 310 C110 270, 130 220, 155 190" stroke="#2D5A3D" stroke-width="1" opacity="0.07" fill="none"></path>
+  </svg>
+
+  <!-- Decorative botanical leaf left -->
+  <svg class="ppp-leaf-left" aria-hidden="true" data-no-icon-edit="true" viewBox="0 0 200 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 10 C40 40, 120 60, 140 120 C160 180, 150 260, 100 310 C100 310, 110 240, 80 200 C50 160, 0 140, 5 80 Z" fill="#2D5A3D" opacity="0.10"></path>
+    <path d="M100 310 C120 260, 110 200, 80 200" stroke="#2D5A3D" stroke-width="1.5" opacity="0.08" fill="none"></path>
+  </svg>
+
+  <!-- Main container -->
+  <div class="ppp-container">
+
+    <!-- Centered title area -->
+    <div class="ppp-title-area">
+      <span class="ppp-label-tag">מוצרים · מתכונים · רווחיות · תמחור</span>
+      <h1 class="ppp-h1">מהנתון להחלטה —<br><span class="ppp-h1-accent">השכבה האסטרטגית</span></h1>
+      <h3 class="ppp-subtitle">נתוני מוצרים, עלויות מרכיבים, לוגיקת מתכונים, ניתוח רווחיות ותרחישי תמחור אירועים הופכים את הפלטפורמה ממערכת תיעוד לכלי קבלת החלטות אמיתי.</h3>
+    </div>
+
+    <!-- Three-panel visual narrative -->
+    <div class="ppp-panels-grid">
+
+      <!-- Panel 1: Products -->
+      <article class="ppp-panel ppp-panel--products">
+        <div class="ppp-panel-icon-wrap">
+          <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+            <circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="2"></circle>
+            <path d="M16 24 Q20 16 24 24 Q28 32 32 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"></path>
+            <circle cx="24" cy="24" r="3" fill="currentColor"></circle>
+          </svg>
+        </div>
+        <div class="ppp-panel-content">
+          <h3 class="ppp-panel-title">מוצרים</h3>
+          <p class="ppp-panel-desc">ניהול קטלוג מלא של מיצים, שייקים, קערות ופריטי קייטרינג. כל מוצר מקושר למתכון, עלות ומחיר מכירה.</p>
+          <ul class="ppp-panel-list">
+            <li><span class="ppp-check">✓</span> קטגוריות מוצרים</li>
+            <li><span class="ppp-check">✓</span> מחיר מכירה ועלות</li>
+            <li><span class="ppp-check">✓</span> פעיל / לא פעיל</li>
+          </ul>
+        </div>
+        <div class="ppp-panel-mockup ppp-mockup--products">
+          <div class="ppp-mock-row ppp-mock-header">
+            <span class="ppp-mock-cell ppp-mock-cell--wide">מוצר</span>
+            <span class="ppp-mock-cell">מחיר</span>
+            <span class="ppp-mock-cell">עלות</span>
+            <span class="ppp-mock-cell ppp-mock-badge-col">מרווח</span>
+          </div>
+          <div class="ppp-mock-row">
+            <span class="ppp-mock-cell ppp-mock-cell--wide">שייק מנגו טרי</span>
+            <span class="ppp-mock-cell">₪32</span>
+            <span class="ppp-mock-cell">₪11</span>
+            <span class="ppp-mock-badge ppp-badge--green">65%</span>
+          </div>
+          <div class="ppp-mock-row">
+            <span class="ppp-mock-cell ppp-mock-cell--wide">מיץ סלק-תפוח</span>
+            <span class="ppp-mock-cell">₪28</span>
+            <span class="ppp-mock-cell">₪9</span>
+            <span class="ppp-mock-badge ppp-badge--green">68%</span>
+          </div>
+          <div class="ppp-mock-row">
+            <span class="ppp-mock-cell ppp-mock-cell--wide">קערת אסאי</span>
+            <span class="ppp-mock-cell">₪45</span>
+            <span class="ppp-mock-cell">₪19</span>
+            <span class="ppp-mock-badge ppp-badge--yellow">58%</span>
+          </div>
+          <div class="ppp-mock-row">
+            <span class="ppp-mock-cell ppp-mock-cell--wide">מארז מתנה</span>
+            <span class="ppp-mock-cell">₪120</span>
+            <span class="ppp-mock-cell">₪52</span>
+            <span class="ppp-mock-badge ppp-badge--yellow">57%</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Panel 2: Ingredients & Recipes (larger/middle) -->
+      <article class="ppp-panel ppp-panel--recipes ppp-panel--featured">
+        <div class="ppp-panel-icon-wrap ppp-panel-icon-wrap--accent">
+          <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+            <rect x="8" y="8" width="14" height="14" rx="3" stroke="currentColor" stroke-width="2"></rect>
+            <rect x="26" y="8" width="14" height="14" rx="3" stroke="currentColor" stroke-width="2"></rect>
+            <rect x="8" y="26" width="14" height="14" rx="3" stroke="currentColor" stroke-width="2"></rect>
+            <path d="M26 33 L40 33 M33 26 L33 40" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <div class="ppp-panel-content">
+          <h3 class="ppp-panel-title">מרכיבים ומתכונים</h3>
+          <p class="ppp-panel-desc">גשר העלות בין חומר הגלם לשולחן הלקוח. כל מרכיב מקושר לספק, ומכל מתכון מחושבת עלות המוצר באופן אוטומטי.</p>
+          <ul class="ppp-panel-list">
+            <li><span class="ppp-check">✓</span> מעקב מלאי ועלות יחידה</li>
+            <li><span class="ppp-check">✓</span> התראות מלאי נמוך</li>
+            <li><span class="ppp-check">✓</span> חישוב עלות מתכון אוטומטי</li>
+          </ul>
+        </div>
+        <div class="ppp-panel-mockup ppp-mockup--recipes">
+          <div class="ppp-recipe-title">מתכון: שייק מנגו טרי</div>
+          <div class="ppp-recipe-rows">
+            <div class="ppp-recipe-row">
+              <span class="ppp-recipe-ingredient">מנגו קפוא</span>
+              <span class="ppp-recipe-qty">150 גר׳</span>
+              <span class="ppp-recipe-cost">₪5.40</span>
+            </div>
+            <div class="ppp-recipe-row">
+              <span class="ppp-recipe-ingredient">בננה</span>
+              <span class="ppp-recipe-qty">80 גר׳</span>
+              <span class="ppp-recipe-cost">₪1.20</span>
+            </div>
+            <div class="ppp-recipe-row">
+              <span class="ppp-recipe-ingredient">חלב שקדים</span>
+              <span class="ppp-recipe-qty">200 מ״ל</span>
+              <span class="ppp-recipe-cost">₪3.10</span>
+            </div>
+            <div class="ppp-recipe-row">
+              <span class="ppp-recipe-ingredient">אבקת חלבון</span>
+              <span class="ppp-recipe-qty">20 גר׳</span>
+              <span class="ppp-recipe-cost">₪1.30</span>
+            </div>
+          </div>
+          <div class="ppp-recipe-total">
+            <span>סה״כ עלות מתכון</span>
+            <span class="ppp-recipe-total-val">₪11.00</span>
+          </div>
+          <div class="ppp-recipe-margin-bar">
+            <div class="ppp-recipe-margin-fill" style="width:65%"></div>
+          </div>
+          <div class="ppp-recipe-margin-label">מרווח גולמי: <strong>65%</strong></div>
+        </div>
+        <!-- Hero image inside featured panel -->
+        <div class="ppp-featured-image-wrap">
+          <img data-hero-bg="true" data-placeholder="products-profitability-pricing-hero-image-1" data-context="Premium internal business management dashboard for 18 Karrots juice shop showing a recipe cost breakdown screen with ingredients list, cost per unit, and profit margin calculation. Clean modern UI with warm orange and cream tones, Hebrew text labels, cards and data tables on a light background." width="600" height="400" src="/assets/site-products-profitability-pricing-hero-image-1.webp" alt="מסך ניהול מתכונים ועלויות מוצרים במערכת 18 Karrots" class="ppp-featured-image">
+        </div>
+      </article>
+
+      <!-- Panel 3: Profitability & Event Pricing -->
+      <article class="ppp-panel ppp-panel--profitability">
+        <div class="ppp-panel-icon-wrap ppp-panel-icon-wrap--secondary">
+          <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+            <polyline points="8,36 18,24 26,30 38,12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"></polyline>
+            <circle cx="38" cy="12" r="3" fill="currentColor"></circle>
+            <line x1="8" y1="40" x2="40" y2="40" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+          </svg>
+        </div>
+        <div class="ppp-panel-content">
+          <h3 class="ppp-panel-title">רווחיות ותמחור אירועים</h3>
+          <p class="ppp-panel-desc">זיהוי המוצרים הרווחיים ביותר, ניתוח בזבוז, ובניית תרחישי תמחור לאירועים, טעימות ומארזי מתנה.</p>
+          <ul class="ppp-panel-list">
+            <li><span class="ppp-check">✓</span> מיון לפי רווחיות</li>
+            <li><span class="ppp-check">✓</span> תרחישי תמחור לאירועים</li>
+            <li><span class="ppp-check">✓</span> המלצת מחיר מכירה</li>
+          </ul>
+        </div>
+        <div class="ppp-panel-mockup ppp-mockup--profitability">
+          <div class="ppp-profit-scenario">
+            <div class="ppp-scenario-label">תרחיש: כוסות טעימה — אירוע</div>
+            <div class="ppp-scenario-rows">
+              <div class="ppp-scenario-row">
+                <span>שייק גדול (עלות)</span>
+                <span>₪40</span>
+              </div>
+              <div class="ppp-scenario-row">
+                <span>כוסות טעימה מיוצרות</span>
+                <span>8 יח׳</span>
+              </div>
+              <div class="ppp-scenario-row">
+                <span>עלות אריזה קטנה</span>
+                <span>₪4</span>
+              </div>
+              <div class="ppp-scenario-row">
+                <span>עלות עבודה נוספת</span>
+                <span>₪8</span>
+              </div>
+            </div>
+            <div class="ppp-scenario-divider"></div>
+            <div class="ppp-scenario-result">
+              <span>מחיר מומלץ לכוס (מרווח 40%)</span>
+              <span class="ppp-scenario-price">₪10.50</span>
+            </div>
+          </div>
+          <div class="ppp-profit-indicators">
+            <div class="ppp-profit-chip ppp-profit-chip--high">גבוה <span>65%+</span></div>
+            <div class="ppp-profit-chip ppp-profit-chip--mid">בינוני <span>40–65%</span></div>
+            <div class="ppp-profit-chip ppp-profit-chip--low">נמוך <span>&lt;40%</span></div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+    <!-- End panels grid -->
+
+    <!-- CTA row -->
+    <div class="ppp-cta-row">
+      <a href="#products" class="ppp-btn-primary">צפה במוצרים וברווחיות <i class="fas fa-arrow-left"></i></a>
+      <a href="#events" class="ppp-btn-outline">תמחור אירועים וקייטרינג</a>
+    </div>
+
+  </div>
+  <!-- End container -->
+
+  <!-- Bottom angled divider: citrus gradient edge to cream -->
+  <div class="ppp-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,80 L0,30 Q180,10 360,28 T720,20 Q900,12 1080,30 T1440,22 L1440,80 Z" fill="#FDF8F2"></path>
+    </svg>
+  </div>
+
+</section>
+
+<section class="products-profitability-pricing-architecture-section" data-layout-spec="מוצרים, רווחיות ותמחור-architecture" dir="rtl">
+  <div class="ppp-arch-container">
+
+    <!-- Header Block -->
+    <div class="ppp-arch-header">
+      <span class="ppp-arch-eyebrow">מבנה המערכת</span>
+      <h2 class="ppp-arch-title">כיצד מודל הנתונים עובד</h2>
+      <p class="ppp-arch-desc">המערכת בנויה על שרשרת קשרים חכמה: ספקים מזינים מרכיבים, מרכיבים בונים מתכונים, מתכונים מגדירים את עלות המוצר, ועלות המוצר מחשבת רווחיות ותמחור אירועים — הכול בזרימה אחת רציפה שמספקת לך בהירות פיננסית מלאה.</p>
+    </div>
+
+    <!-- Architecture Diagram -->
+    <div class="ppp-arch-diagram" role="img" aria-label="דיאגרמת קשרי מודל הנתונים">
+
+      <!-- Node: Suppliers -->
+      <div class="ppp-arch-node ppp-node-suppliers">
+        <div class="ppp-node-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" data-element-type="icon" data-icon-type="svg" aria-hidden="true">
+            <rect x="3" y="10" width="26" height="16" rx="3" stroke="currentColor" stroke-width="2" fill="none"></rect>
+            <path d="M8 10V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3" stroke="currentColor" stroke-width="2" fill="none"></path>
+            <circle cx="10" cy="22" r="2" fill="currentColor"></circle>
+            <circle cx="22" cy="22" r="2" fill="currentColor"></circle>
+          </svg>
+        </div>
+        <div class="ppp-node-content">
+          <h3 class="ppp-node-title">ספקים</h3>
+          <p class="ppp-node-desc">שם, קטגוריה, ימי הזמנה, פרטי קשר</p>
+        </div>
+        <div class="ppp-node-formula">מקור עלות ראשוני</div>
+      </div>
+
+      <!-- Connector 1 -->
+      <div class="ppp-arch-connector ppp-conn-1" aria-hidden="true">
+        <div class="ppp-conn-line"></div>
+        <div class="ppp-conn-arrow">→</div>
+        <div class="ppp-conn-label">מספק</div>
+      </div>
+
+      <!-- Node: Ingredients -->
+      <div class="ppp-arch-node ppp-node-ingredients">
+        <div class="ppp-node-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" data-element-type="icon" data-icon-type="svg" aria-hidden="true">
+            <path d="M16 4C10 4 6 9 6 14c0 4 2.5 7.5 6 9v3h8v-3c3.5-1.5 6-5 6-9 0-5-4-10-10-10z" stroke="currentColor" stroke-width="2" fill="none"></path>
+            <path d="M12 27h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+            <path d="M16 14v-4M13 13l3-3 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </div>
+        <div class="ppp-node-content">
+          <h3 class="ppp-node-title">מרכיבים</h3>
+          <p class="ppp-node-desc">עלות ליחידה, מלאי, התראות מינימום</p>
+        </div>
+        <div class="ppp-node-formula">עלות ליח׳ = עלות רכישה ÷ כמות</div>
+      </div>
+
+      <!-- Connector 2 -->
+      <div class="ppp-arch-connector ppp-conn-2" aria-hidden="true">
+        <div class="ppp-conn-line"></div>
+        <div class="ppp-conn-arrow">→</div>
+        <div class="ppp-conn-label">מרכיב</div>
+      </div>
+
+      <!-- Node: Recipes -->
+      <div class="ppp-arch-node ppp-node-recipes">
+        <div class="ppp-node-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" data-element-type="icon" data-icon-type="svg" aria-hidden="true">
+            <rect x="5" y="4" width="22" height="24" rx="3" stroke="currentColor" stroke-width="2" fill="none"></rect>
+            <path d="M10 10h12M10 15h12M10 20h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <div class="ppp-node-content">
+          <h3 class="ppp-node-title">מתכונים</h3>
+          <p class="ppp-node-desc">מרכיב + כמות + יחידה לכל מוצר</p>
+        </div>
+        <div class="ppp-node-formula">עלות מתכון = Σ(עלות מרכיב × כמות)</div>
+      </div>
+
+      <!-- Connector 3 -->
+      <div class="ppp-arch-connector ppp-conn-3" aria-hidden="true">
+        <div class="ppp-conn-line"></div>
+        <div class="ppp-conn-arrow">→</div>
+        <div class="ppp-conn-label">מגדיר</div>
+      </div>
+
+      <!-- Node: Products -->
+      <div class="ppp-arch-node ppp-node-products">
+        <div class="ppp-node-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" data-element-type="icon" data-icon-type="svg" aria-hidden="true">
+            <path d="M16 4l10 5.5v11L16 28 6 20.5v-11L16 4z" stroke="currentColor" stroke-width="2" fill="none"></path>
+            <path d="M16 4v24M6 9.5l10 6 10-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <div class="ppp-node-content">
+          <h3 class="ppp-node-title">מוצרים</h3>
+          <p class="ppp-node-desc">מחיר מכירה, קטגוריה, סטטוס פעיל</p>
+        </div>
+        <div class="ppp-node-formula">רווח גולמי = מחיר מכירה − עלות</div>
+      </div>
+
+      <!-- Connector 4 — splits to two -->
+      <div class="ppp-arch-split-connector" aria-hidden="true">
+        <div class="ppp-split-line-top"></div>
+        <div class="ppp-split-line-bottom"></div>
+        <div class="ppp-split-arrow-top">→</div>
+        <div class="ppp-split-arrow-bottom">→</div>
+      </div>
+
+      <!-- Right branch: two nodes stacked -->
+      <div class="ppp-arch-branch">
+
+        <!-- Node: Profitability -->
+        <div class="ppp-arch-node ppp-node-profitability">
+          <div class="ppp-node-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" data-element-type="icon" data-icon-type="svg" aria-hidden="true">
+              <polyline points="4,24 10,16 16,19 22,10 28,13" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline>
+              <circle cx="28" cy="13" r="2" fill="currentColor"></circle>
+              <path d="M4 28h24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+            </svg>
+          </div>
+          <div class="ppp-node-content">
+            <h3 class="ppp-node-title">רווחיות</h3>
+            <p class="ppp-node-desc">מרווח רווח, אחוז עלות, דירוג מוצרים</p>
+          </div>
+          <div class="ppp-node-formula">מרווח % = רווח גולמי ÷ מחיר מכירה</div>
+        </div>
+
+        <!-- Node: Events & Catering -->
+        <div class="ppp-arch-node ppp-node-events">
+          <div class="ppp-node-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" data-element-type="icon" data-icon-type="svg" aria-hidden="true">
+              <rect x="4" y="8" width="24" height="20" rx="3" stroke="currentColor" stroke-width="2" fill="none"></rect>
+              <path d="M4 14h24" stroke="currentColor" stroke-width="1.5"></path>
+              <path d="M10 4v4M22 4v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+              <path d="M10 20h4M10 24h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+            </svg>
+          </div>
+          <div class="ppp-node-content">
+            <h3 class="ppp-node-title">תמחור אירועים</h3>
+            <p class="ppp-node-desc">מנות טעימה, קייטרינג, מארזי מתנה</p>
+          </div>
+          <div class="ppp-node-formula">מחיר מומלץ = עלות + אריזה + עבודה + מרווח</div>
+        </div>
+
+      </div>
+      <!-- end branch -->
+
+    </div>
+    <!-- end diagram -->
+
+    <!-- Relationships Legend -->
+    <div class="ppp-arch-legend">
+      <div class="ppp-legend-item">
+        <span class="ppp-legend-dot ppp-dot-suppliers"></span>
+        <span class="ppp-legend-text">ספקים ← הוצאות</span>
+      </div>
+      <div class="ppp-legend-item">
+        <span class="ppp-legend-dot ppp-dot-ingredients"></span>
+        <span class="ppp-legend-text">מרכיבים ← מתכונים</span>
+      </div>
+      <div class="ppp-legend-item">
+        <span class="ppp-legend-dot ppp-dot-products"></span>
+        <span class="ppp-legend-text">מוצרים ← רווחיות</span>
+      </div>
+      <div class="ppp-legend-item">
+        <span class="ppp-legend-dot ppp-dot-reports"></span>
+        <span class="ppp-legend-text">דוחות ← כל המקורות</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Decorative leaf motif -->
+  <svg class="ppp-arch-deco-leaf" aria-hidden="true" data-no-icon-edit="true" viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M100 280 C60 220 10 160 30 80 C50 20 120 10 160 60 C200 110 180 200 100 280Z" fill="#5F8B4C" opacity="0.10"></path>
+    <path d="M100 280 C100 200 100 120 100 60" stroke="#5F8B4C" stroke-width="1.5" opacity="0.15"></path>
+    <path d="M100 160 C75 140 50 120 30 100" stroke="#5F8B4C" stroke-width="1" opacity="0.12"></path>
+    <path d="M100 200 C125 175 150 150 160 120" stroke="#5F8B4C" stroke-width="1" opacity="0.12"></path>
+  </svg>
+
+  <!-- Bottom paper fold divider -->
+  <div class="ppp-arch-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1440 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,70 L0,28 Q60,18 120,28 T240,22 Q300,28 360,18 T480,24 Q540,18 600,26 T720,20 Q780,26 840,18 T960,24 Q1020,18 1080,26 T1200,20 Q1260,26 1320,18 T1440,26 L1440,70 Z" fill="#FDF5EB"></path>
+    </svg>
+  </div>
+
+</section>
+
+<section class="products-profitability-pricing-insights-section" data-layout-spec="מוצרים, רווחיות ותמחור-insights" dir="rtl">
+  <!-- Decorative blob -->
+  <div class="pppi-blob-bg" aria-hidden="true"></div>
+
+  <div class="pppi-container">
+
+    <!-- Section Header -->
+    <div class="pppi-header">
+      <span class="pppi-eyebrow">ניתוח רווחיות</span>
+      <h2 class="pppi-title">מה באמת מרוויח לכם כסף?</h2>
+      <p class="pppi-subtitle">מיון לפי הרווחיים ביותר, הפחות רווחיים, וזיהוי רכיבים שמכרסמים בשקט בשולי הרווח — כך תדעו בדיוק היכן להשקיע ומה לשנות.</p>
+    </div>
+
+    <!-- Two-column layout -->
+    <div class="pppi-grid">
+
+      <!-- LEFT (END) column: Insight Cards -->
+      <aside class="pppi-cards-col">
+
+        <!-- Card 1: Low Margin Products -->
+        <article class="pppi-insight-card pppi-card-warning">
+          <div class="pppi-card-icon-wrap pppi-icon-warning">
+            <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          </div>
+          <div class="pppi-card-body">
+            <h3 class="pppi-card-title">מוצרים עם שולי רווח נמוכים</h3>
+            <p class="pppi-card-desc">3 מוצרים פעילים נמצאים מתחת לסף הרווחיות המינימלי. שקלו עדכון מחיר או הפחתת עלות ייצור.</p>
+            <ul class="pppi-card-list">
+              <li><span class="pppi-badge pppi-badge-low">נמוך</span><span>שייק ירוק קלאסי — 12% מרווח</span></li>
+              <li><span class="pppi-badge pppi-badge-low">נמוך</span><span>בול פירות קיץ — 9% מרווח</span></li>
+              <li><span class="pppi-badge pppi-badge-low">נמוך</span><span>קופסת מתנה S — 7% מרווח</span></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Card 2: Waste & Inefficiency -->
+        <article class="pppi-insight-card pppi-card-neutral">
+          <div class="pppi-card-icon-wrap pppi-icon-neutral">
+            <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+          </div>
+          <div class="pppi-card-body">
+            <h3 class="pppi-card-title">בזבוז ואי-יעילות</h3>
+            <p class="pppi-card-desc">ניתוח הפרש בין כמות הנרכשת לכמות שנצרכה בפועל מגלה דליפות עלות שניתן לסגור.</p>
+            <ul class="pppi-card-list">
+              <li>
+                <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                <span>כ-8% מהתוצרת הטרייה הולכת לאיבוד מדי שבוע</span>
+              </li>
+              <li>
+                <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                <span>חומרי אריזה עודפים מייצרים עלות מיותרת של ~₪340/חודש</span>
+              </li>
+              <li>
+                <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                <span>שעות עבודה לא מתוכננות מוסיפות 6% לעלות ייצור</span>
+              </li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Card 3: High-Cost Ingredients -->
+        <article class="pppi-insight-card pppi-card-accent">
+          <div class="pppi-card-icon-wrap pppi-icon-accent">
+            <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          </div>
+          <div class="pppi-card-body">
+            <h3 class="pppi-card-title">מרכיבים יקרים שפוגעים בשוליים</h3>
+            <p class="pppi-card-desc">מרכיבים בעלות גבוהה שמשפיעים ישירות על רווחיות המוצרים המובילים שלכם.</p>
+            <div class="pppi-ingredient-list">
+              <div class="pppi-ingredient-row">
+                <span class="pppi-ingredient-name">אבקת ספירולינה</span>
+                <div class="pppi-ingredient-bar-wrap">
+                  <div class="pppi-ingredient-bar" style="width: 82%"></div>
+                </div>
+                <span class="pppi-ingredient-pct">82%</span>
+              </div>
+              <div class="pppi-ingredient-row">
+                <span class="pppi-ingredient-name">שמן קוקוס קר</span>
+                <div class="pppi-ingredient-bar-wrap">
+                  <div class="pppi-ingredient-bar" style="width: 67%"></div>
+                </div>
+                <span class="pppi-ingredient-pct">67%</span>
+              </div>
+              <div class="pppi-ingredient-row">
+                <span class="pppi-ingredient-name">פירות יבשים פרמיום</span>
+                <div class="pppi-ingredient-bar-wrap">
+                  <div class="pppi-ingredient-bar" style="width: 55%"></div>
+                </div>
+                <span class="pppi-ingredient-pct">55%</span>
+              </div>
+              <div class="pppi-ingredient-row">
+                <span class="pppi-ingredient-name">אסאי קפוא</span>
+                <div class="pppi-ingredient-bar-wrap">
+                  <div class="pppi-ingredient-bar" style="width: 48%"></div>
+                </div>
+                <span class="pppi-ingredient-pct">48%</span>
+              </div>
+            </div>
+            <p class="pppi-card-note">% מעלות המוצר הכוללת</p>
+          </div>
+        </article>
+
+      </aside>
+
+      <!-- RIGHT (START) column: Profitability Table -->
+      <div class="pppi-table-col">
+        <div class="pppi-table-card">
+          <div class="pppi-table-header">
+            <h3 class="pppi-table-title">טבלת רווחיות מוצרים</h3>
+            <div class="pppi-legend">
+              <span class="pppi-legend-item"><span class="pppi-dot pppi-dot-good"></span>גבוה</span>
+              <span class="pppi-legend-item"><span class="pppi-dot pppi-dot-medium"></span>בינוני</span>
+              <span class="pppi-legend-item"><span class="pppi-dot pppi-dot-low"></span>נמוך</span>
+            </div>
+          </div>
+          <div class="pppi-table-scroll">
+            <table class="pppi-table">
+              <thead>
+                <tr>
+                  <th>מוצר</th>
+                  <th>מחיר מכירה</th>
+                  <th>עלות כוללת</th>
+                  <th>רווח גולמי</th>
+                  <th>שולי רווח %</th>
+                  <th>% עלות</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="pppi-product-name">שייק מנגו טרופי</td>
+                  <td>₪32</td>
+                  <td>₪9.50</td>
+                  <td>₪22.50</td>
+                  <td>70%</td>
+                  <td>30%</td>
+                  <td><span class="pppi-margin-badge pppi-margin-good">גבוה</span></td>
+                </tr>
+                <tr>
+                  <td class="pppi-product-name">מיץ תפוזים טרי</td>
+                  <td>₪22</td>
+                  <td>₪6.80</td>
+                  <td>₪15.20</td>
+                  <td>69%</td>
+                  <td>31%</td>
+                  <td><span class="pppi-margin-badge pppi-margin-good">גבוה</span></td>
+                </tr>
+                <tr>
+                  <td class="pppi-product-name">בול אסאי</td>
+                  <td>₪48</td>
+                  <td>₪18.20</td>
+                  <td>₪29.80</td>
+                  <td>62%</td>
+                  <td>38%</td>
+                  <td><span class="pppi-margin-badge pppi-margin-good">גבוה</span></td>
+                </tr>
+                <tr>
+                  <td class="pppi-product-name">שייק חלבון</td>
+                  <td>₪38</td>
+                  <td>₪16.50</td>
+                  <td>₪21.50</td>
+                  <td>57%</td>
+                  <td>43%</td>
+                  <td><span class="pppi-margin-badge pppi-margin-medium">בינוני</span></td>
+                </tr>
+                <tr>
+                  <td class="pppi-product-name">לימונדה ג'ינג'ר</td>
+                  <td>₪24</td>
+                  <td>₪10.80</td>
+                  <td>₪13.20</td>
+                  <td>55%</td>
+                  <td>45%</td>
+                  <td><span class="pppi-margin-badge pppi-margin-medium">בינוני</span></td>
+                </tr>
+                <tr>
+                  <td class="pppi-product-name">מיץ ירוק דטוקס</td>
+                  <td>₪28</td>
+                  <td>₪13.40</td>
+                  <td>₪14.60</td>
+                  <td>52%</td>
+                  <td>48%</td>
+                  <td><span class="pppi-margin-badge pppi-margin-medium">בינוני</span></td>
+                </tr>
+                <tr>
+                  <td class="pppi-product-name">שייק ירוק קלאסי</td>
+                  <td>₪26</td>
+                  <td>₪22.90</td>
+                  <td>₪3.10</td>
+                  <td>12%</td>
+                  <td>88%</td>
+                  <td><span class="pppi-margin-badge pppi-margin-low">נמוך</span></td>
+                </tr>
+                <tr>
+                  <td class="pppi-product-name">בול פירות קיץ</td>
+                  <td>₪42</td>
+                  <td>₪38.20</td>
+                  <td>₪3.80</td>
+                  <td>9%</td>
+                  <td>91%</td>
+                  <td><span class="pppi-margin-badge pppi-margin-low">נמוך</span></td>
+                </tr>
+                <tr>
+                  <td class="pppi-product-name">קופסת מתנה S</td>
+                  <td>₪65</td>
+                  <td>₪60.40</td>
+                  <td>₪4.60</td>
+                  <td>7%</td>
+                  <td>93%</td>
+                  <td><span class="pppi-margin-badge pppi-margin-low">נמוך</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pppi-table-footer">
+            <span class="pppi-table-note">* נתונים מחושבים אוטומטית על בסיס מתכוני המוצרים ועלויות הרכיבים</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bottom divider: dark plum wash to next dark section -->
+  <div class="pppi-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,80 L0,42 Q60,30 120,38 T240,32 Q300,38 360,28 T480,36 Q540,30 600,38 T720,28 Q780,36 840,30 T960,38 Q1020,28 1080,36 T1200,30 Q1260,38 1320,32 T1440,38 L1440,80 Z" fill="#0D1F12"></path>
+    </svg>
+  </div>
+
+</section>
+
+<section class="products-profitability-pricing-scenario-section" data-layout-spec="מוצרים, רווחיות ותמחור-scenario" dir="rtl">
+  <!-- Grain texture overlay -->
+  <div class="ppps-grain-overlay" aria-hidden="true"></div>
+
+  <!-- Decorative botanical leaf right -->
+  <svg class="ppps-leaf-deco ppps-leaf-right" aria-hidden="true" data-no-icon-edit="true" viewBox="0 0 200 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M180 10 C160 60, 100 80, 80 140 C60 200, 90 260, 100 310 C110 260, 140 200, 120 140 C100 80, 160 60, 180 10Z" fill="#5F8B4C" opacity="0.10"></path>
+    <line x1="100" y1="310" x2="100" y2="10" stroke="#5F8B4C" stroke-width="1.5" opacity="0.08"></line>
+    <line x1="100" y1="100" x2="160" y2="60" stroke="#5F8B4C" stroke-width="1" opacity="0.07"></line>
+    <line x1="100" y1="160" x2="140" y2="120" stroke="#5F8B4C" stroke-width="1" opacity="0.07"></line>
+    <line x1="100" y1="220" x2="125" y2="190" stroke="#5F8B4C" stroke-width="1" opacity="0.07"></line>
+  </svg>
+
+  <div class="ppps-container">
+    <div class="ppps-grid">
+
+      <!-- RIGHT COLUMN: Content -->
+      <div class="ppps-content-col">
+        <div class="ppps-eyebrow">
+          <span class="ppps-eyebrow-dot"></span>
+          <span>תמחור אירועים וקייטרינג</span>
+        </div>
+
+        <h2 class="ppps-heading">בנו הצעות מחיר חכמות לטעימות, מארזי מתנה, קייטרינג וסיורים קולינריים</h2>
+
+        <p class="ppps-body">המערכת מחשבת את העלות האמיתית לכל מנה ומציעה מחיר מומלץ שמגן על מרווח הרווח שלכם. הזינו את פרטי הסצנריו — והמערכת תעשה את השאר.</p>
+
+        <!-- Example scenario card -->
+        <div class="ppps-example-card">
+          <div class="ppps-example-header">
+            <div class="ppps-example-icon">
+              <svg data-element-type="icon" data-icon-type="svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+            </div>
+            <span class="ppps-example-label">דוגמה חיה</span>
+          </div>
+          <p class="ppps-example-title">שייק גדול ← 8 כוסות טעימה</p>
+          <div class="ppps-example-steps">
+            <div class="ppps-step-row">
+              <span class="ppps-step-label">עלות שייק גדול</span>
+              <span class="ppps-step-value">₪40</span>
+            </div>
+            <div class="ppps-step-row">
+              <span class="ppps-step-label">מספר כוסות טעימה</span>
+              <span class="ppps-step-value">8 יח׳</span>
+            </div>
+            <div class="ppps-step-row">
+              <span class="ppps-step-label">עלות אריזה קטנה</span>
+              <span class="ppps-step-value">₪3 / יח׳</span>
+            </div>
+            <div class="ppps-step-row">
+              <span class="ppps-step-label">עלות עבודה נוספת</span>
+              <span class="ppps-step-value">₪8</span>
+            </div>
+            <div class="ppps-step-divider"></div>
+            <div class="ppps-step-row ppps-step-row--highlight">
+              <span class="ppps-step-label">עלות אמיתית לכוס</span>
+              <span class="ppps-step-value ppps-accent-value">₪9.25</span>
+            </div>
+            <div class="ppps-step-row ppps-step-row--result">
+              <span class="ppps-step-label">מחיר מומלץ (30% רווח)</span>
+              <span class="ppps-step-value ppps-primary-value">₪13.20</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature pills -->
+        <div class="ppps-pills">
+          <span class="ppps-pill">שמירת סצנריו</span>
+          <span class="ppps-pill">השוואת הצעות</span>
+          <span class="ppps-pill">הצעת מחיר לייצוא</span>
+          <span class="ppps-pill">ניתוח רווחיות</span>
+        </div>
+      </div>
+
+      <!-- LEFT COLUMN: Static Pricing Calculator UI -->
+      <div class="ppps-visual-col">
+        <div class="ppps-calculator-card">
+          <!-- Card header bar -->
+          <div class="ppps-calc-topbar">
+            <div class="ppps-topbar-dots">
+              <span class="ppps-dot ppps-dot--red"></span>
+              <span class="ppps-dot ppps-dot--yellow"></span>
+              <span class="ppps-dot ppps-dot--green"></span>
+            </div>
+            <span class="ppps-topbar-title">סצנריו חדש — תמחור אירוע</span>
+          </div>
+
+          <!-- Form fields -->
+          <div class="ppps-calc-body">
+            <div class="ppps-field-group">
+              <label class="ppps-field-label">שם הסצנריו</label>
+              <div class="ppps-field-input">
+                <span class="ppps-field-placeholder">למשל: טעימות ירידת שוק יוני</span>
+              </div>
+            </div>
+
+            <div class="ppps-field-group">
+              <label class="ppps-field-label">מוצר בסיס</label>
+              <div class="ppps-field-input ppps-field-select">
+                <span class="ppps-field-placeholder">שייק מנגו טרופי</span>
+                <svg data-element-type="icon" data-icon-type="svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="ppps-chevron">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+            </div>
+
+            <div class="ppps-field-row">
+              <div class="ppps-field-group ppps-field-group--half">
+                <label class="ppps-field-label">עלות מוצר בסיס (₪)</label>
+                <div class="ppps-field-input ppps-field-input--filled">
+                  <span>40.00</span>
+                </div>
+              </div>
+              <div class="ppps-field-group ppps-field-group--half">
+                <label class="ppps-field-label">מספר מנות / כוסות</label>
+                <div class="ppps-field-input ppps-field-input--filled">
+                  <span>8</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ppps-field-row">
+              <div class="ppps-field-group ppps-field-group--half">
+                <label class="ppps-field-label">עלות אריזה נוספת (₪)</label>
+                <div class="ppps-field-input ppps-field-input--filled">
+                  <span>3.00</span>
+                </div>
+              </div>
+              <div class="ppps-field-group ppps-field-group--half">
+                <label class="ppps-field-label">עלות עבודה (₪)</label>
+                <div class="ppps-field-input ppps-field-input--filled">
+                  <span>8.00</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ppps-field-row">
+              <div class="ppps-field-group ppps-field-group--half">
+                <label class="ppps-field-label">עלות הובלה (₪)</label>
+                <div class="ppps-field-input">
+                  <span class="ppps-field-placeholder">0.00</span>
+                </div>
+              </div>
+              <div class="ppps-field-group ppps-field-group--half">
+                <label class="ppps-field-label">מרווח רווח רצוי (%)</label>
+                <div class="ppps-field-input ppps-field-input--filled ppps-field-input--accent">
+                  <span>30%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Result block -->
+            <div class="ppps-result-block">
+              <div class="ppps-result-row">
+                <span class="ppps-result-label">עלות אמיתית למנה</span>
+                <span class="ppps-result-val ppps-result-val--cost">₪9.25</span>
+              </div>
+              <div class="ppps-result-divider"></div>
+              <div class="ppps-result-row ppps-result-row--main">
+                <span class="ppps-result-label ppps-result-label--main">מחיר מומלץ למכירה</span>
+                <span class="ppps-result-val ppps-result-val--price">₪13.20</span>
+              </div>
+              <div class="ppps-result-formula">
+                <span>עלות (₪9.25) ÷ (1 − 30%) = ₪13.20</span>
+              </div>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="ppps-calc-actions">
+              <button class="ppps-btn-save" type="button">שמור סצנריו</button>
+              <button class="ppps-btn-export" type="button">
+                <svg data-element-type="icon" data-icon-type="svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                ייצוא הצעה
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating badge -->
+        <div class="ppps-floating-badge">
+          <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+            <polyline points="16 7 22 7 22 13"></polyline>
+          </svg>
+          <span>רווח מוגן</span>
+        </div>
+
+        <!-- Image placeholder -->
+        <div class="ppps-img-wrapper">
+          <img data-placeholder="products-profitability-pricing-scenario-image-1" data-context="Premium internal business management dashboard screen showing an event and catering pricing calculator for a juice and smoothie shop called 18 Karrots. The UI shows a dark-themed form with fields for scenario name, product cost, number of servings, packaging cost, labor cost, and recommended price. The interface is clean, modern, and professional with orange and green accent colors." width="600" height="400" src="/assets/site-products-profitability-pricing-scenario-image-1.webp" alt="מחשבון תמחור אירועים וקייטרינג — 18 Karrots">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bottom cream curve divider -->
+  <div class="ppps-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,80 L0,50 Q120,20 240,38 T480,28 Q600,18 720,35 T960,25 Q1080,15 1200,32 T1440,22 L1440,80 Z" fill="#FDF8F2"></path>
+    </svg>
+  </div>
+</section>
+
+<section class="products-profitability-pricing-reports-section" data-layout-spec="מוצרים, רווחיות ותמחור-reports" dir="rtl">
+  <div class="ppp-reports-container">
+
+    <!-- Section Header -->
+    <header class="ppp-reports-header">
+      <span class="ppp-reports-eyebrow">מערכת ניהול 18 Karrots</span>
+      <h2 class="ppp-reports-title">דוחות עסקיים חכמים</h2>
+      <p class="ppp-reports-subtitle">כל הנתונים התפעוליים והפיננסיים שלך הופכים לדוחות ברורים שניתן לסקור, לייצא ולהשתמש בהם לקבלת החלטות עסקיות טובות יותר — פתרונות בריאות לעובדים מרחוק וכלים לייזמים חדשניים בישראל.</p>
+      <div class="ppp-reports-divider-line" aria-hidden="true"></div>
+    </header>
+
+    <!-- Reports Grid -->
+    <div class="ppp-reports-grid">
+
+      <!-- Card 1: Monthly Income Report -->
+      <article class="ppp-report-card">
+        <div class="ppp-report-card-icon-wrap ppp-icon-income">
+          <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+            <polyline points="17 6 23 6 23 12"></polyline>
+          </svg>
+        </div>
+        <div class="ppp-report-card-content">
+          <h3 class="ppp-report-card-title">דוח הכנסות חודשי</h3>
+          <p class="ppp-report-card-desc">סיכום מלא של כל מקורות ההכנסה לפי חודש — קופה, קיוסק, וולט, קייטרינג ואירועים. כולל השוואה לחודש קודם ומגמות צמיחה.</p>
+          <ul class="ppp-report-tags">
+            <li>לפי מקור</li>
+            <li>השוואה חודשית</li>
+            <li>גרף מגמה</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Card 2: Monthly Expense Report -->
+      <article class="ppp-report-card">
+        <div class="ppp-report-card-icon-wrap ppp-icon-expense">
+          <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+            <line x1="2" y1="10" x2="22" y2="10"></line>
+          </svg>
+        </div>
+        <div class="ppp-report-card-content">
+          <h3 class="ppp-report-card-title">דוח הוצאות חודשי</h3>
+          <p class="ppp-report-card-desc">פירוט מלא של כל ההוצאות לפי קטגוריה וספק — פירות, קפואים, אריזות, שכר, שכירות, ציוד, שיווק ועוד. עם חישוב אוטומטי של סך חודשי.</p>
+          <ul class="ppp-report-tags">
+            <li>לפי קטגוריה</li>
+            <li>לפי ספק</li>
+            <li>ניתוח עלויות</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Card 3: Monthly Profit Summary -->
+      <article class="ppp-report-card">
+        <div class="ppp-report-card-icon-wrap ppp-icon-profit">
+          <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="16"></line>
+            <line x1="8" y1="12" x2="16" y2="12"></line>
+          </svg>
+        </div>
+        <div class="ppp-report-card-content">
+          <h3 class="ppp-report-card-title">סיכום רווח חודשי</h3>
+          <p class="ppp-report-card-desc">רווח נקי, אחוז מרווח, עמלת זכיינות 5% ועלות סחורה — הכל במסמך אחד. מאפשר הבנה מהירה של הבריאות הפיננסית של העסק בכל חודש.</p>
+          <ul class="ppp-report-tags">
+            <li>רווח נקי</li>
+            <li>% מרווח</li>
+            <li>עמלת זכיינות</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Card 4: Supplier Expense Report -->
+      <article class="ppp-report-card">
+        <div class="ppp-report-card-icon-wrap ppp-icon-supplier">
+          <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+        </div>
+        <div class="ppp-report-card-content">
+          <h3 class="ppp-report-card-title">דוח הוצאות לפי ספק</h3>
+          <p class="ppp-report-card-desc">מבט מרוכז על כל ספק — כמה הוצאנו, באיזו תדירות, ומה המוצרים שסופקו. מאפשר זיהוי ספקים יקרים ומשא ומתן חכם יותר על מחירים.</p>
+          <ul class="ppp-report-tags">
+            <li>סיכום לפי ספק</li>
+            <li>תדירות הזמנות</li>
+            <li>השוואה תקופתית</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Card 5: Product Profitability Report -->
+      <article class="ppp-report-card">
+        <div class="ppp-report-card-icon-wrap ppp-icon-product">
+          <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+        </div>
+        <div class="ppp-report-card-content">
+          <h3 class="ppp-report-card-title">דוח רווחיות מוצרים</h3>
+          <p class="ppp-report-card-desc">אילו מיצים, שייקים וקערות הכי רווחיים? הדוח מציג מחיר מכירה, עלות ייצור, רווח גולמי ואחוז מרווח לכל מוצר — עם סימוני ירוק/צהוב/אדום לפי ביצועים.</p>
+          <ul class="ppp-report-tags">
+            <li>מרווח גולמי</li>
+            <li>% עלות</li>
+            <li>דירוג מוצרים</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Card 6: Cost of Goods Report -->
+      <article class="ppp-report-card">
+        <div class="ppp-report-card-icon-wrap ppp-icon-cogs">
+          <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"></path>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07M8.46 8.46a5 5 0 0 0 0 7.07"></path>
+          </svg>
+        </div>
+        <div class="ppp-report-card-content">
+          <h3 class="ppp-report-card-title">דוח עלות סחורה (COGS)</h3>
+          <p class="ppp-report-card-desc">ניתוח עמוק של עלות חומרי הגלם — לפי מרכיב, לפי ספק ולפי מוצר. כולל זיהוי מרכיבים יקרים המשפיעים על המרווחים ותובנות לגבי בזבוז וחוסר יעילות.</p>
+          <ul class="ppp-report-tags">
+            <li>עלות מרכיבים</li>
+            <li>בזבוז וחוסר יעילות</li>
+            <li>% COGS</li>
+          </ul>
+        </div>
+      </article>
+
+    </div>
+    <!-- /Reports Grid -->
+
+    <!-- Export Note Band -->
+    <div class="ppp-export-band">
+      <div class="ppp-export-band-inner">
+        <div class="ppp-export-icon-group">
+          <span class="ppp-export-chip">
+            <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            ייצוא CSV
+          </span>
+          <span class="ppp-export-chip">
+            <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            הדפסת דוח
+          </span>
+        </div>
+        <p class="ppp-export-note">כל הדוחות ניתנים לייצוא כקובץ CSV לעיבוד בגיליון אלקטרוני, או להדפסה בפורמט נייר מסודר ומקצועי — מוכן לפגישות, רואי חשבון וסקירה שנתית.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="ppp-reports-cta-wrap">
+      <p class="ppp-reports-cta-note">רוצים לראות איך המערכת עובדת עבור העסק שלכם?</p>
+      <a href="/contact" class="ppp-reports-cta-btn">
+        <span>צרו קשר עכשיו</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+  </main>
+  
+  <footer class="site-footer" dir="rtl">
+  <div class="footer-inner">
+    <div class="footer-top">
+
+      <!-- Column 1: Company Info -->
+      <div class="footer-col footer-brand">
+        <img src="/assets/general-logo.webp" alt="משה ה" class="logo">
+        <p class="brand-tagline">מרכז הפיקוד העסקי שלך — ניהול פיננסי חכם, בהיר ואמין.</p>
+        <div class="social-links">
+          <a href="[facebook_handle]" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="[instagram_handle]" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="[whatsapp_handle]" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+
+      <!-- Column 2: Quick Links -->
+      <div class="footer-col footer-links">
+        <h4 class="footer-heading">ניווט מהיר</h4>
+        <ul class="footer-nav">
+          <li><a href="/dashboard">לוח בקרה</a></li>
+          <li><a href="/income-expenses">הכנסות והוצאות</a></li>
+          <li><a href="/suppliers-receipts">ספקים וקבלות</a></li>
+          <li><a href="/products-profitability-pricing">מוצרים, רווחיות ותמחור</a></li>
+          <li><a href="/contact">צור קשר</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Contact Info -->
+      <div class="footer-col footer-contact-col">
+        <h4 class="footer-heading">יצירת קשר</h4>
+        <ul class="footer-contact">
+          <li>
+            <span class="contact-icon"><i class="fas fa-envelope"></i></span>
+            <span class="contact-text"><a href="mailto:[business_email]">[business_email]</a></span>
+          </li>
+          <li>
+            <span class="contact-icon"><i class="fas fa-phone"></i></span>
+            <span class="contact-text"><a href="tel:[business_phone]">[business_phone]</a></span>
+          </li>
+          <li><a href="/"><span class="contact-icon"><i class="fas fa-map-marker-alt"></i></span>
+            <span class="contact-text">[business_address]</span></a></li>
+        </ul>
+      </div>
+
+      <!-- Column 4: About / Extra -->
+      <div class="footer-col footer-about">
+        <h4 class="footer-heading">אודות המערכת</h4>
+        <p class="footer-about-text">משה ה מציעה פלטפורמת ניהול עסקי מתקדמת — מעקב אחר הכנסות, הוצאות, ספקים ורווחיות, הכל במקום אחד.</p>
+        <div class="footer-badge">
+          <span class="badge-dot"></span>
+          <span class="badge-label">מערכת פעילה ומאובטחת</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+      <div class="footer-bottom-right">
+        <span class="copyright">© 2026 משה ה. כל הזכויות שמורות.</span>
+      </div>
+      <div class="footer-bottom-left">
+        <nav class="legal-links" aria-label="קישורים משפטיים">
+          <a href="/privacy">מדיניות פרטיות</a>
+          <span class="divider">|</span>
+          <a href="/terms">תנאי שימוש</a>
+          <span class="divider">|</span>
+          <a href="/accessibility">נגישות</a>
+        </nav>
+        <a href="https://zappy5.com" target="_blank" class="zappy-attribution">נוצר באמצעות Zappy</a>
+      </div>
+    </div>
+
+  </div>
+</footer>
+  
+  <a href="https://wa.me/[whatsapp_handle]" class="whatsapp-float" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  
+  <div data-integration="accessibility:toolbar"></div>
+
+    <script src="/script.js"></script>
+
+    <script id="zappy-mobile-submenu-script">
+    (function() {
+      function initMobileSubmenuToggles() {
+        if (window.innerWidth > 768) {
+          document.querySelectorAll('.mobile-submenu-toggle').forEach(function(btn) { btn.remove(); });
+          document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) { menu.classList.remove('mobile-expanded'); });
+          return;
+        }
+        var items = document.querySelectorAll('.nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu)');
+        items.forEach(function(li) {
+          if (li.querySelector('.mobile-submenu-toggle')) return;
+          var submenu = li.querySelector('.sub-menu');
+          var parentLink = li.querySelector(':scope > a');
+          if (!submenu || !parentLink) return;
+          var toggleBtn = document.createElement('button');
+          toggleBtn.className = 'mobile-submenu-toggle';
+          toggleBtn.setAttribute('aria-label', 'Toggle submenu');
+          toggleBtn.setAttribute('type', 'button');
+          parentLink.insertAdjacentElement('afterend', toggleBtn);
+          toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault(); e.stopPropagation();
+            document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
+              if (menu !== submenu) { menu.classList.remove('mobile-expanded'); var t = menu.parentElement.querySelector('.mobile-submenu-toggle'); if(t) t.classList.remove('expanded'); }
+            });
+            submenu.classList.toggle('mobile-expanded');
+            toggleBtn.classList.toggle('expanded');
+          });
+        });
+      }
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileSubmenuToggles); }
+      else { initMobileSubmenuToggles(); }
+      var resizeTimer; window.addEventListener('resize', function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(initMobileSubmenuToggles, 250); });
+      // Re-initialize when mobile menu becomes visible (MutationObserver)
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === 'attributes') {
+            var target = mutation.target;
+            if (target.classList && (target.classList.contains('active') || target.classList.contains('open'))) {
+              setTimeout(initMobileSubmenuToggles, 100);
+            }
+          }
+        });
+      });
+      setTimeout(function() {
+        document.querySelectorAll('.mobile-menu, .nav-menu, #navMenu, nav').forEach(function(menu) {
+          observer.observe(menu, { attributes: true, attributeFilter: ['class', 'style'] });
+        });
+      }, 500);
+    })();
+    </script>
+
+    <script id="zappy-navbar-scroll-effect">
+    (function(){
+      var nb=document.querySelector('nav.navbar,.navbar:not(.zappy-catalog-menu)');
+      var cm=document.querySelector('.zappy-catalog-menu,#zappy-catalog-menu');
+      if(!nb)return;
+      var fb='rgba(255,249,241,0.85)';
+      var th=60;
+      var rs=getComputedStyle(document.documentElement);
+      var td=rs.getPropertyValue('--text-dark').trim()||'#1a1a1a';
+      var tl=rs.getPropertyValue('--text-light').trim()||'#ffffff';
+      var st=true?td:tl;
+      nb.style.transition='background 0.3s ease,backdrop-filter 0.3s ease,-webkit-backdrop-filter 0.3s ease,box-shadow 0.3s ease';
+      if(cm)cm.style.transition='background 0.3s ease,backdrop-filter 0.3s ease,-webkit-backdrop-filter 0.3s ease';
+      var neSel='a,.navbar-brand,.navbar-brand a,.dropdown-toggle,.mobile-toggle,.phone-header-btn,.mobile-hamburger-btn,.mobile-close-btn,.mobile-submenu-toggle,.nav-link';
+      var skipCls=['cart-link','login-link','nav-search-toggle','search-toggle'];
+      function sTC(c,clr){var els=c.querySelectorAll(neSel);for(var i=0;i<els.length;i++){var sk=false;if(els[i].closest('.sub-menu')||els[i].closest('.dropdown-menu')){sk=true;}for(var j=0;j<skipCls.length;j++){if(els[i].classList.contains(skipCls[j])){sk=true;break;}}if(!sk)els[i].style.setProperty('color',clr,'important');}}
+      function cTC(c){var els=c.querySelectorAll(neSel);for(var i=0;i<els.length;i++){if(els[i].closest('.sub-menu')||els[i].closest('.dropdown-menu'))continue;els[i].style.removeProperty('color');}}
+      function applyScrolled(){
+        nb.classList.add('scrolled');
+        if(window.innerWidth>768){
+          nb.style.setProperty('--frosted-text',st);
+          nb.style.setProperty('background-image','none','important');
+          nb.style.setProperty('background-color',fb,'important');
+          nb.style.backdropFilter='blur(12px)';nb.style.webkitBackdropFilter='blur(12px)';nb.style.boxShadow='0 2px 16px rgba(0,0,0,0.12)';
+          sTC(nb,st);
+        }
+        if(cm){cm.classList.add('scrolled');if(window.innerWidth>768){cm.style.setProperty('background',fb,'important');cm.style.setProperty('backdrop-filter','blur(12px)','important');cm.style.setProperty('-webkit-backdrop-filter','blur(12px)','important');sTC(cm,st);}}
+      }
+      function onS(){
+        if(window._zappyNavNoDarkHero) return;
+        if(window.innerWidth<=768){nb.classList.remove('scrolled');cTC(nb);if(cm){cm.classList.remove('scrolled');cTC(cm);}return;}
+        var y=window.scrollY||window.pageYOffset;
+        if(y>th){
+          nb.classList.add('scrolled');nb.style.setProperty('background-color',fb,'important');nb.style.setProperty('background-image','none','important');
+          nb.style.setProperty('--frosted-text',st);nb.style.backdropFilter='blur(12px)';nb.style.webkitBackdropFilter='blur(12px)';nb.style.boxShadow='0 2px 16px rgba(0,0,0,0.12)';
+          sTC(nb,st);
+          if(cm){cm.classList.add('scrolled');cm.style.setProperty('background',fb,'important');cm.style.setProperty('backdrop-filter','blur(12px)','important');cm.style.setProperty('-webkit-backdrop-filter','blur(12px)','important');sTC(cm,st);}
+        }else{
+          nb.classList.remove('scrolled');nb.style.setProperty('background-color','transparent','important');nb.style.removeProperty('background-image');
+          nb.style.removeProperty('--frosted-text');nb.style.backdropFilter='none';nb.style.webkitBackdropFilter='none';nb.style.boxShadow='none';
+          cTC(nb);
+          if(cm){cm.classList.remove('scrolled');cm.style.setProperty('background','transparent','important');cm.style.setProperty('backdrop-filter','none','important');cm.style.setProperty('-webkit-backdrop-filter','none','important');cTC(cm);}
+        }
+      }
+      function sLum(rv,gv,bv){rv/=255;gv/=255;bv/=255;rv=rv<=0.03928?rv/12.92:Math.pow((rv+0.055)/1.055,2.4);gv=gv<=0.03928?gv/12.92:Math.pow((gv+0.055)/1.055,2.4);bv=bv<=0.03928?bv/12.92:Math.pow((bv+0.055)/1.055,2.4);return 0.2126*rv+0.7152*gv+0.0722*bv;}
+      window.addEventListener('scroll',onS,{passive:true});
+      window.addEventListener('resize',onS,{passive:true});
+      onS();
+      var heroEl=document.querySelector('section[class*="hero"],[data-hero-type],main>section:first-child');
+      var hasDH=false;
+      if(heroEl){var hCs=getComputedStyle(heroEl);var hBI=hCs.backgroundImage;if(hBI&&hBI!=='none'){if(hBI.indexOf('url(')!==-1){var hM2=hCs.backgroundColor.match(/\d+/g);if(hM2&&hM2.length>=3){hasDH=sLum(parseInt(hM2[0]),parseInt(hM2[1]),parseInt(hM2[2]))<0.4;}else{hasDH=true;}}else if(hBI.indexOf('gradient')!==-1){var cM=hBI.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/g);if(cM&&cM.length>0){var tLm=0;for(var ci=0;ci<cM.length;ci++){var pts=cM[ci].match(/\d+/g);tLm+=sLum(parseInt(pts[0]),parseInt(pts[1]),parseInt(pts[2]));}hasDH=(tLm/cM.length)<0.4;}else{hasDH=true;}}else{hasDH=true;}}else{var hM=hCs.backgroundColor.match(/\d+/g);if(hM&&hM.length>=3){hasDH=sLum(parseInt(hM[0]),parseInt(hM[1]),parseInt(hM[2]))<0.4;}}}
+      if(!hasDH){window.removeEventListener('scroll',onS);window.removeEventListener('resize',onS);applyScrolled();window._zappyNavNoDarkHero=true;}
+    })();
+    </script>
+</body>
+</html>
