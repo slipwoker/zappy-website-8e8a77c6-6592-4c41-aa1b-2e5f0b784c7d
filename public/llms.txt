@@ -1,4 +1,4 @@
-# משה ה — Generative Engine Optimization Map
+# משה דיגידטל לעסקים  — Generative Engine Optimization Map
 
 > Build a modern internal business management web app for a juice and smoothie shop called "18 Karrots".
 
@@ -496,7 +496,10 @@ Information about WCAG compliance and accessibility features.
 
 ## How to Contact Us
 
-- (No contact details configured yet.)
+- Email: 0537530310a@gmail.com
+- Phone: 0537530310
+- Phone (tel): tel:0537530310
+- Address: קדושת לוי, 10, ביתר, Israel, Israel
 
 ### Contact form
 - URL: https://example.com/contact
@@ -514,7 +517,7 @@ Information about WCAG compliance and accessibility features.
 
 # Business Context (for LLM understanding)
 
-## About משה ה
+## About משה דיגידטל לעסקים 
 Build a modern internal business management web app for a juice and smoothie shop called "18 Karrots".
 
 This is NOT a customer app.
